@@ -1,15 +1,8 @@
 "use client"
 
 import { FaSearch, FaFilter, FaTimes } from "react-icons/fa"
+import { PokemonFiltersProps } from "@/types/pokemonTypes"
 
-interface PokemonFiltersProps {
-  searchTerm: string
-  setSearchTerm: (term: string) => void
-  selectedType: string
-  setSelectedType: (type: string) => void
-  availableTypes: string[]
-  totalResults: number
-}
 
 export default function PokemonFilters({
   searchTerm,
