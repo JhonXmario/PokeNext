@@ -1,12 +1,10 @@
-export async function getAllPokemon(limit: number) {
-  const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`)
-  return res.json()
-}
-
 export async function getPokemon(name: string) {
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`);
-    if (!response.ok) return null;
+    if (!response.ok) {
+      console.error(`Failed to fetch details for ${name}`);
+      return null;
+    }
     const data = await response.json();
     return {
       id: data.id,
@@ -18,42 +16,35 @@ export async function getPokemon(name: string) {
       habilities: data.abilities.map((abilityInfo: any) => abilityInfo.ability.name).join(', '),
     };
   } catch (error) {
-    console.error("Error fetching Pokémon:", error);
+    console.error("Error capturando datos de los pokemons: ", error);
     return null;
   }
 }
 
-export async function getPokemonDetails(name: string) {
-  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`);
-  return res.json();
-}
 
-export async function getDetailedPokemons(limit: number) {
-  const data = await getAllPokemon(limit);
-
-  const pokemons = await Promise.all(
-    data.results.map(async (pokemon: { name: string }) => {
-      const details = await getPokemonDetails(pokemon.name);
-      return {
-        name: pokemon.name,
-        sprite: details.sprites.other.home.front_default,
-        types: details.types.map((t: any) => t.type.name),
-      };
-    })
-  );
-
-  return pokemons;
-}
-
-export async function getEnhancedPokemons(limit = 900, offset = 0) {
+export async function getEnhancedPokemons(limit: number = 1025, offset: number = 0) {
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`)
     const data = await response.json()
 
     const pokemons = await Promise.all(
       data.results.map(async (pokemon: { name: string; url: string }) => {
-        const pokemonResponse = await fetch(pokemon.url)
-        const pokemonData = await pokemonResponse.json()
+        let pokemonResponse;
+        let attempt = 0;
+        while (attempt < 3) {
+          try {
+            pokemonResponse = await fetch(pokemon.url);
+            if (pokemonResponse.ok) break;
+          } catch (err) {
+            console.error(`Attempt ${attempt + 1}: Failed to fetch ${pokemon.name}`, err);
+          }
+          attempt++;
+        }
+        if (!pokemonResponse || !pokemonResponse.ok) {
+          console.error(`Failed to fetch details for ${pokemon.name} after 3 attempts`);
+          return null;
+        }
+        const pokemonData = await pokemonResponse.json();
 
         return {
           id: pokemonData.id,
@@ -72,7 +63,7 @@ export async function getEnhancedPokemons(limit = 900, offset = 0) {
 
     return pokemons
   } catch (error) {
-    console.error("Error fetching enhanced Pokémon data:", error)
+    console.error("Error capturando datos de los pokemons: ", error)
     return []
   }
 }
