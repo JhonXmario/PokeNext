@@ -14,7 +14,7 @@ export default function FooterSection() {
               <div className="w-10 h-10 bg-gradient-to-r from-pink-500 to-blue-500 rounded-full flex items-center justify-center">
                 <span className="text-white font-bold text-lg">P</span>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Pokédex</h3>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">PokéNext</h3>
             </div>
             <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-md">
               Una Pokédex moderna y completa construida con Next.js y la PokéAPI oficial. Explora el fascinante mundo de
@@ -104,16 +104,16 @@ export default function FooterSection() {
               <div className="flex items-center space-x-3">
                 <FaEnvelope className="w-4 h-4 text-gray-500 dark:text-gray-400" />
                 <Link
-                  href="mailto:contact@pokedex.com"
+                  href="mailto:jhondiaz8462@gmail.com"
                   className="text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400 transition-colors duration-300"
                 >
-                  contact@pokedex.com
+                  jhondiaz8462@gmail.com
                 </Link>
               </div>
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 ¿Tienes alguna sugerencia o encontraste un error?
                 <br />
-                ¡No dudes en contactarnos!
+                ¡No dudes en contactarme!
               </p>
             </div>
           </div>
@@ -123,7 +123,7 @@ export default function FooterSection() {
         <div className="border-t border-gray-200 dark:border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-sm text-gray-500 dark:text-gray-400">
-              © {currentYear} Pokédex. Todos los derechos reservados.
+              © {currentYear} PokédNext. Todos los derechos reservados.
             </div>
             <div className="flex items-center space-x-6 text-sm">
               <Link
@@ -143,9 +143,17 @@ export default function FooterSection() {
                 <Link
                   href="https://pokeapi.co"
                   target="_blank"
-                  className="text-pink-600 hover:text-pink-700 dark:text-pink-400 dark:hover:text-pink-300"
+                  className="text-yellow-600 hover:text-yellow-700 dark:text-yellow-400 dark:hover:text-yellow-300"
                 >
                   PokéAPI
+                </Link>
+                {" "} {" "}
+                <Link
+                  href="https://nextjs.org/"
+                  target="_blank"
+                  className="text-neutral-600 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-300"
+                >
+                  Next.JS
                 </Link>
               </span>
             </div>
