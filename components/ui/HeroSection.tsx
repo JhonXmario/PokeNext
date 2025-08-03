@@ -6,11 +6,11 @@ export default function HeroicSection() {
       <div className="max-w-4xl mx-auto space-y-8">
         <div className="space-y-4">
           <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight">
-            Pokédex
+            PokéNext
             <span className="block text-3xl md:text-4xl font-normal mt-2 text-white/90">Gotta Catch 'Em All!</span>
           </h1>
           <p className="text-xl md:text-2xl text-white/80 max-w-2xl mx-auto leading-relaxed">
-            Explora el mundo de los Pokémon con la Pokédex interactiva que he desarrollado. Descubre información detallada,
+            Explora el mundo de los Pokémon con la Pokédex interactiva que he desarrollado con Next.JS. Descubre información detallada,
             estadísticas y curiosidades de todos tus Pokémon favoritos.
           </p>
         </div>
