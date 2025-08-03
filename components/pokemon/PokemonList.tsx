@@ -1,27 +1,13 @@
 "use client"
 
-import { usePokemonList } from "../../hooks/use-pokemon-list"
+import { usePokemonList } from "@/hooks/usePokemonList"
+import { UsePokemonListProps } from "@/types/pokemonTypes"
 import PokemonCard from "./PokemonCard"
 import PokemonFilters from "./PokemonFilter"
 import Pagination from "../ui/Pagination"
 import { FaSpinner } from "react-icons/fa"
 
-interface Pokemon {
-  id: number
-  name: string
-  sprite: string
-  types: string[]
-  abilities: string[]
-  height: number
-  weight: number
-}
-
-interface PokemonListProps {
-  initialPokemons: Pokemon[]
-  itemsPerPage?: number
-}
-
-export default function PokemonList({ initialPokemons, itemsPerPage = 20 }: PokemonListProps) {
+export default function PokemonList({ initialPokemons, itemsPerPage = 20 }: UsePokemonListProps) {
   const {
     searchTerm,
     setSearchTerm,
