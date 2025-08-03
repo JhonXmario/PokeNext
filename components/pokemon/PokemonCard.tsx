@@ -1,20 +1,11 @@
 "use client"
 
 import type React from "react"
-
+import { PokemonCardProps } from "@/types/pokemonTypes"
 import Link from "next/link"
 import { useState } from "react"
 import { FaHeart, FaRegHeart, FaRuler, FaWeight } from "react-icons/fa"
 
-interface PokemonCardProps {
-  id: number
-  name: string
-  sprite: string
-  types: string[]
-  abilities: string[]
-  height: number
-  weight: number
-}
 
 export default function PokemonCard({
   id,
@@ -31,7 +22,6 @@ export default function PokemonCard({
   const toggleFavorite = (e: React.MouseEvent) => {
     e.preventDefault()
     setIsFavorite(!isFavorite)
-    // Aquí podrías añadir lógica para guardar en localStorage o base de datos
   }
 
   const formatId = (id?: number) => {
