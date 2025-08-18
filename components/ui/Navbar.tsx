@@ -6,6 +6,20 @@ import Link from "next/link"
 import type { FormEvent } from "react"
 import { FaSearch, FaHome, FaBars, FaTimes, FaHeart, FaList, FaRandom } from "react-icons/fa"
 
+const icons = [
+  FaSearch, 
+  FaHome, 
+  FaBars, 
+  FaTimes, 
+  FaHeart, 
+  FaList, 
+  FaRandom
+].map(
+  icon => icon as unknown as React.FC<React.SVGProps<SVGSVGElement>>
+);
+
+const [Search, Home, Bars, Times, Heart, List, Random] = icons;
+
 export default function Navbar() {
   const router = useRouter()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -39,12 +53,16 @@ export default function Navbar() {
     setIsMenuOpen(false)
   }
 
-  const navigationLinks = [
-    { href: "/", label: "Inicio", icon: FaHome },
-    { href: "/pokemon", label: "Pokédex", icon: FaList },
-    { href: "/favorites", label: "Favoritos", icon: FaHeart },
-    { href: "/random", label: "Aleatorio", icon: FaRandom },
-  ]
+  const navigationLinks: {
+    href: string;
+    label: string;
+    icon: React.FC<React.SVGProps<SVGSVGElement>>;
+  }[] = [
+    { href: "/", label: "Inicio", icon: Home },
+    { href: "/pokemon", label: "Pokédex", icon: List },
+    { href: "/favorites", label: "Favoritos", icon: Heart },
+    { href: "/random", label: "Aleatorio", icon: Random },
+  ];
 
   return (
     <nav
@@ -103,7 +121,7 @@ export default function Navbar() {
                   type="submit"
                   className="ml-2 text-pink-600 hover:text-pink-700 dark:text-pink-400 dark:hover:text-pink-300 transition-colors duration-300 hover:scale-110 transform"
                 >
-                  <FaSearch className="w-4 h-4" />
+                  <Search className="w-4 h-4" />
                 </button>
               </div>
             </form>
@@ -116,7 +134,7 @@ export default function Navbar() {
               className="text-gray-700 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 transition-colors duration-300 p-2"
               aria-label="Toggle menu"
             >
-              {isMenuOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
+              {isMenuOpen ? <Times className="w-6 h-6" /> : <Bars className="w-6 h-6" />}
             </button>
           </div>
         </div>
@@ -143,7 +161,7 @@ export default function Navbar() {
                     type="submit"
                     className="ml-2 text-pink-600 hover:text-pink-700 dark:text-pink-400 dark:hover:text-pink-300 transition-colors duration-300"
                   >
-                    <FaSearch className="w-4 h-4" />
+                    <Search className="w-4 h-4" />
                   </button>
                 </div>
               </form>

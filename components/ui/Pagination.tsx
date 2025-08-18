@@ -2,6 +2,9 @@
 
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 
+const ChevronLeft = FaChevronLeft as unknown as React.FC<React.SVGProps<SVGSVGElement>>;
+const ChevronRight = FaChevronRight as unknown as React.FC<React.SVGProps<SVGSVGElement>>;
+
 interface PaginationProps {
   currentPage: number
   totalPages: number
@@ -47,7 +50,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
         disabled={currentPage === 1}
         className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300"
       >
-        <FaChevronLeft className="w-4 h-4" />
+        <ChevronLeft className="w-4 h-4" />
         <span className="hidden sm:inline">Anterior</span>
       </button>
 
@@ -80,7 +83,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
         className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300"
       >
         <span className="hidden sm:inline">Siguiente</span>
-        <FaChevronRight className="w-4 h-4" />
+        <ChevronRight className="w-4 h-4" />
       </button>
     </div>
   )

@@ -1,6 +1,18 @@
 import Link from "next/link"
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaEnvelope } from "react-icons/fa"
 
+const icons = [
+  FaGithub, 
+  FaLinkedin, 
+  FaTwitter, 
+  FaInstagram, 
+  FaEnvelope,
+].map(
+  icon => icon as unknown as React.FC<React.SVGProps<SVGSVGElement>>
+);
+
+const [Github, Linkedin, Twitter, Instagram, Envelope,] = icons;
+
 export default function FooterSection() {
   const currentYear = new Date().getFullYear()
 
@@ -29,7 +41,7 @@ export default function FooterSection() {
                 className="w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-100 dark:hover:bg-pink-900 transition-colors duration-300"
                 aria-label="GitHub"
               >
-                <FaGithub className="w-5 h-5 text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400" />
+                <Github className="w-5 h-5 text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400" />
               </Link>
               <Link
                 href="https://linkedin.com"
@@ -37,7 +49,7 @@ export default function FooterSection() {
                 className="w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-100 dark:hover:bg-pink-900 transition-colors duration-300"
                 aria-label="LinkedIn"
               >
-                <FaLinkedin className="w-5 h-5 text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400" />
+                <Linkedin className="w-5 h-5 text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400" />
               </Link>
               <Link
                 href="https://twitter.com"
@@ -45,7 +57,7 @@ export default function FooterSection() {
                 className="w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-100 dark:hover:bg-pink-900 transition-colors duration-300"
                 aria-label="Twitter"
               >
-                <FaTwitter className="w-5 h-5 text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400" />
+                <Twitter className="w-5 h-5 text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400" />
               </Link>
               <Link
                 href="https://instagram.com"
@@ -53,7 +65,7 @@ export default function FooterSection() {
                 className="w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-100 dark:hover:bg-pink-900 transition-colors duration-300"
                 aria-label="Instagram"
               >
-                <FaInstagram className="w-5 h-5 text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400" />
+                <Instagram className="w-5 h-5 text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400" />
               </Link>
             </div>
           </div>
@@ -102,7 +114,7 @@ export default function FooterSection() {
             <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Contacto</h4>
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
-                <FaEnvelope className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+                <Envelope className="w-4 h-4 text-gray-500 dark:text-gray-400" />
                 <Link
                   href="mailto:jhondiaz8462@gmail.com"
                   className="text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400 transition-colors duration-300"

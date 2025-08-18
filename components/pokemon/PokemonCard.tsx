@@ -6,6 +6,17 @@ import Link from "next/link"
 import { useState } from "react"
 import { FaHeart, FaRegHeart, FaRuler, FaWeight } from "react-icons/fa"
 
+const icons = [
+  FaHeart,
+  FaRegHeart,
+  FaRuler,
+  FaWeight,
+].map(
+  icon => icon as unknown as React.FC<React.SVGProps<SVGSVGElement>>
+);
+
+const [Heart, RegHeart, Ruler, Weight,] = icons;
+
 
 export default function PokemonCard({
   id,
@@ -39,7 +50,7 @@ export default function PokemonCard({
             className="text-pink-500 hover:text-pink-600 transition-colors duration-300 hover:scale-110 transform"
             aria-label={isFavorite ? "Quitar de favoritos" : "Añadir a favoritos"}
           >
-            {isFavorite ? <FaHeart className="w-5 h-5" /> : <FaRegHeart className="w-5 h-5" />}
+            {isFavorite ? <Heart className="w-5 h-5" /> : <RegHeart className="w-5 h-5" />}
           </button>
         </div>
 
@@ -78,11 +89,11 @@ export default function PokemonCard({
           {/* Estadísticas básicas */}
           <div className="flex justify-between items-center text-xs text-gray-600 dark:text-gray-400 mb-3">
             <div className="flex items-center space-x-1">
-              <FaRuler className="w-3 h-3" />
+              <Ruler className="w-3 h-3" />
               <span>{(height / 10).toFixed(1)}m</span>
             </div>
             <div className="flex items-center space-x-1">
-              <FaWeight className="w-3 h-3" />
+              <Weight className="w-3 h-3" />
               <span>{(weight / 10).toFixed(1)}kg</span>
             </div>
           </div>
