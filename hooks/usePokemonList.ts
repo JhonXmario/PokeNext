@@ -1,9 +1,8 @@
 "use client"
-
 import { useState, useEffect, useMemo } from "react"
 import { UsePokemonListProps } from "../types/pokemonTypes"
 
-export function useAdvancedPokemonList({ initialPokemons, itemsPerPage = 20 }: UsePokemonListProps) {
+export function usePokemonList({ initialPokemons, itemsPerPage = 20 }: UsePokemonListProps) {
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedType, setSelectedType] = useState("")
   const [selectedGeneration, setSelectedGeneration] = useState("")
@@ -14,14 +13,19 @@ export function useAdvancedPokemonList({ initialPokemons, itemsPerPage = 20 }: U
   // Filtrar Pokémon basado en todos los criterios
   const filteredPokemons = useMemo(() => {
     return initialPokemons.filter((pokemon) => {
+
+      // Filtrar por nombre o abilidad
       const matchesSearch =
         pokemon.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         pokemon.abilities.some((ability) => ability.toLowerCase().includes(searchTerm.toLowerCase()))
 
+      // Filtrar por tipo
       const matchesType = selectedType === "" || pokemon.types.includes(selectedType)
 
+      // Filtrar por generacion 
       const matchesGeneration = selectedGeneration === "" || pokemon.generation.toString() === selectedGeneration
 
+      // Filtrar por juego
       const matchesGame = selectedGame === "" || (pokemon.games && pokemon.games.includes(selectedGame))
 
       return matchesSearch && matchesType && matchesGeneration && matchesGame
@@ -66,6 +70,7 @@ export function useAdvancedPokemonList({ initialPokemons, itemsPerPage = 20 }: U
     return Array.from(games).sort()
   }, [initialPokemons])
 
+  // Limpirar los filtros usados
   const clearAllFilters = () => {
     setSearchTerm("")
     setSelectedType("")

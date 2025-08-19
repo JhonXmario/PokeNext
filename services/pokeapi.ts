@@ -38,12 +38,12 @@ export async function getEnhancedPokemons(limit: number = 1025, offset: number =
             pokemonResponse = await fetch(pokemon.url);
             if (pokemonResponse.ok) break;
           } catch (err) {
-            console.error(`Attempt ${attempt + 1}: Failed to fetch ${pokemon.name}`, err);
+            console.error(`Intento ${attempt + 1}: fallido capturando a: ${pokemon.name}`, err);
           }
           attempt++;
         }
         if (!pokemonResponse || !pokemonResponse.ok) {
-          console.error(`Failed to fetch details for ${pokemon.name} after 3 attempts`);
+          console.error(`La operacion a fallado obteniendo los datos de: ${pokemon.name} despues de 3 intentos fallidos`);
           return null;
         }
         const pokemonData = await pokemonResponse.json();
