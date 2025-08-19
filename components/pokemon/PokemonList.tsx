@@ -1,6 +1,6 @@
 "use client"
 
-import { useAdvancedPokemonList } from "../../hooks/usePokemonList"
+import { usePokemonList } from "../../hooks/usePokemonList"
 import AdvancedPokemonFilters from "./PokemonFilter"
 import PokemonCard from "./PokemonCard"
 import Pagination from "../ui/Pagination"
@@ -14,7 +14,7 @@ interface PokemonListAdvancedProps {
   itemsPerPage?: number
 }
 
-export default function PokemonListAdvanced({ initialPokemons, itemsPerPage = 20 }: PokemonListAdvancedProps) {
+export default function PokemonList({ initialPokemons, itemsPerPage = 20 }: PokemonListAdvancedProps) {
   const {
     searchTerm,
     setSearchTerm,
@@ -34,7 +34,7 @@ export default function PokemonListAdvanced({ initialPokemons, itemsPerPage = 20
     isLoading,
     totalResults,
     clearAllFilters,
-  } = useAdvancedPokemonList({ initialPokemons, itemsPerPage })
+  } = usePokemonList({ initialPokemons, itemsPerPage })
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
