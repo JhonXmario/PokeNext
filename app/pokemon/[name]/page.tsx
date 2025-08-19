@@ -1,4 +1,6 @@
 import { getPokemon } from "@/services/pokeapi";
+import FooterSection from "@/components/ui/FooterSection";
+import Navbar from "@/components/ui/Navbar";
 import ButtonBack from "@/components/ui/ButtonBackToList";
 type Props = {
   params: { name: string }
@@ -10,6 +12,7 @@ export default async function PokemonDetail({ params }: Props) {
 
   return (
     <div>
+      <Navbar />
       <h1>{data.name}</h1>
       <img src={data.sprite.front_default} alt={data.name} width={120} />
       <p>Peso: {data.weight}</p>
@@ -22,6 +25,7 @@ export default async function PokemonDetail({ params }: Props) {
         <button type="submit">Agregar a favoritos</button>
       </form>
       <ButtonBack />
+      <FooterSection />
     </div>
   )
 }
