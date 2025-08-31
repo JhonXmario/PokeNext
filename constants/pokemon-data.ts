@@ -1,4 +1,7 @@
+import { FaFire, FaShieldAlt, FaBolt, FaHeart, FaEye, FaTachometerAlt } from "react-icons/fa"
+
 export const POKEMON_GENERATIONS = [
+  
   { id: 1, name: "Generación I", region: "Kanto", range: "1-151" },
   { id: 2, name: "Generación II", region: "Johto", range: "152-251" },
   { id: 3, name: "Generación III", region: "Hoenn", range: "252-386" },
@@ -46,3 +49,44 @@ export const POKEMON_TYPE_COLORS: Record<string, string> = {
   steel: "bg-gray-500",
   fairy: "bg-pink-300",
 }
+
+export const STATS_CONFIG = {
+  hp: {
+    icon: FaHeart,
+    name: "PS",
+    color: "bg-red-500",
+  },
+  attack: {
+    icon: FaFire,
+    name: "Ataque",
+    color: "bg-orange-500",
+  },
+  defense: {
+    icon: FaShieldAlt,
+    name: "Defensa",
+    color: "bg-blue-500",
+  },
+  "special-attack": {
+    icon: FaBolt,
+    name: "At. Especial",
+    color: "bg-purple-500",
+  },
+  "special-defense": {
+    icon: FaEye,
+    name: "Def. Especial",
+    color: "bg-green-500",
+  },
+  speed: {
+    icon: FaTachometerAlt,
+    name: "Velocidad",
+    color: "bg-yellow-500",
+  },
+} as const;
+
+export const getStatRating = (value: number) => {
+  if (value >= 150) return { rating: "Excelente", color: "text-green-600 dark:text-green-400" };
+  if (value >= 120) return { rating: "Muy bueno", color: "text-blue-600 dark:text-blue-400" };
+  if (value >= 90) return { rating: "Bueno", color: "text-yellow-600 dark:text-yellow-400" };
+  if (value >= 60) return { rating: "Regular", color: "text-orange-600 dark:text-orange-400" };
+  return { rating: "Bajo", color: "text-red-600 dark:text-red-400" };
+};
