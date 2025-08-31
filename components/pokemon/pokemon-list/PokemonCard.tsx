@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { PokemonCardProps } from "@/types/pokemonTypes"
+import { PokemonCardProps } from "@/types/pokemon-types"
 import Link from "next/link"
 import { useState } from "react"
 import { FaHeart, FaRegHeart, FaRuler, FaWeight } from "react-icons/fa"

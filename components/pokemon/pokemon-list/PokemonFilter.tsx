@@ -3,8 +3,8 @@
 import { FaSearch, FaTimes, FaFilter, FaGamepad, FaStar, FaLayerGroup } from "react-icons/fa"
 import FilterDropdown from "./FilterDropdown"
 import FilterButtonGroup from "./FilterButtonGroup"
-import { POKEMON_GENERATIONS, POKEMON_GAMES, POKEMON_TYPE_COLORS } from "../../constants/pokemon-data"
-import type { PokemonFiltersProps } from "../../types/pokemonTypes"
+import { POKEMON_GENERATIONS, POKEMON_GAMES, POKEMON_TYPE_COLORS } from "@/constants/pokemon-data"
+import type { PokemonFiltersProps } from "@/types/pokemon-types"
 
 const icons = [
   FaSearch,

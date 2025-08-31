@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import { FaChevronDown } from "react-icons/fa"
-import type { FilterDropdownProps } from "../../types/pokemonTypes"
+import type { FilterDropdownProps } from "@/types/pokemon-types"
 
 const ChevronDown = FaChevronDown as unknown as React.FC<React.SVGProps<SVGSVGElement>>
 

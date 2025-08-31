@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { FaChevronDown, FaChevronUp } from "react-icons/fa"
-import type { FilterButtonGroupProps } from "../../types/pokemonTypes"
+import type { FilterButtonGroupProps } from "@/types/pokemon-types"
 
 const ChevronDown = FaChevronDown as unknown as React.FC<React.SVGProps<SVGSVGElement>>;
 const ChevronUp = FaChevronUp as unknown as React.FC<React.SVGProps<SVGSVGElement>>;

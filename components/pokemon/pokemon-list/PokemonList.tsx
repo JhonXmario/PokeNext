@@ -1,20 +1,20 @@
 "use client"
 
-import { usePokemonList } from "../../hooks/usePokemonList"
+import { usePokemonList } from "@/hooks/use-pokemon-list"
 import AdvancedPokemonFilters from "./PokemonFilter"
 import PokemonCard from "./PokemonCard"
-import Pagination from "../ui/Pagination"
+import Pagination from "@/components/ui/Pagination"
 import { FaSpinner } from "react-icons/fa"
-import type { Pokemon } from "../../types/pokemonTypes"
+import type { Pokemon } from "@/types/pokemon-types"
 
 const Spiner = FaSpinner as unknown as React.FC<React.SVGProps<SVGSVGElement>>;
 
-interface PokemonListAdvancedProps {
+interface PokemonListProps {
   initialPokemons: Pokemon[]
   itemsPerPage?: number
 }
 
-export default function PokemonList({ initialPokemons, itemsPerPage = 20 }: PokemonListAdvancedProps) {
+export default function PokemonList({ initialPokemons, itemsPerPage = 20 }: PokemonListProps) {
   const {
     searchTerm,
     setSearchTerm,
