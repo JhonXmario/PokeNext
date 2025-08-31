@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect, useMemo } from "react"
-import { UsePokemonListProps } from "../types/pokemonTypes"
+import { UsePokemonListProps } from "../types/pokemon-types"
 
 export function usePokemonList({ initialPokemons, itemsPerPage = 20 }: UsePokemonListProps) {
   const [searchTerm, setSearchTerm] = useState("")
