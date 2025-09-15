@@ -45,6 +45,12 @@ export default function Navbar() {
     }
   }
 
+  const handleRandom = () => {
+    const randomID = Math.floor(Math.random() * 1025) + 1;
+    router.push(`/pokemon/${randomID}`);
+    setIsMenuOpen(false); // cerrar menú móvil si está abierto
+  };
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
@@ -61,7 +67,6 @@ export default function Navbar() {
     { href: "/", label: "Inicio", icon: Home },
     { href: "/pokemon", label: "Pokédex", icon: List },
     { href: "/favorites", label: "Favoritos", icon: Heart },
-    { href: "/random", label: "Aleatorio", icon: Random },
   ];
 
   return (
@@ -104,6 +109,15 @@ export default function Navbar() {
                 </Link>
               )
             })}
+            {/* Botón Aleatorio Desktop */}
+            <button
+              onClick={handleRandom}
+              className="flex items-center space-x-2 text-gray-700 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 transition-all duration-300 group relative hover:cursor-pointer"
+            >
+              <Random className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
+              <span className="font-medium">Aleatorio</span>
+              <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-pink-500 to-blue-500 group-hover:w-full transition-all duration-300"></div>
+            </button>
           </div>
 
           {/* Search Bar - Desktop */}
@@ -121,7 +135,7 @@ export default function Navbar() {
                   type="submit"
                   className="ml-2 text-pink-600 hover:text-pink-700 dark:text-pink-400 dark:hover:text-pink-300 transition-colors duration-300 hover:scale-110 transform"
                 >
-                  <Search className="w-4 h-4" />
+                  <Search className="w-4 h-4 hover:cursor-pointer" />
                 </button>
               </div>
             </form>
@@ -182,6 +196,15 @@ export default function Navbar() {
                 </Link>
               )
             })}
+
+            {/* Botón Aleatorio Móvil */}
+            <button
+              onClick={handleRandom}
+              className="flex items-center space-x-3 px-3 py-3 text-gray-700 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all duration-300 group w-full"
+            >
+              <Random className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+              <span className="font-medium">Aleatorio</span>
+            </button>
 
             {/* Mobile CTA */}
             <div className="px-3 py-2 mt-4">
