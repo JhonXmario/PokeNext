@@ -4,21 +4,21 @@ import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import type { FormEvent } from "react"
-import { FaSearch, FaHome, FaBars, FaTimes, FaHeart, FaList, FaRandom } from "react-icons/fa"
+import { FaSearch, FaHome, FaBars, FaTimes, FaList, FaRandom, FaInfoCircle } from "react-icons/fa"
 
 const icons = [
   FaSearch, 
   FaHome, 
   FaBars, 
-  FaTimes, 
-  FaHeart, 
+  FaTimes,
   FaList, 
-  FaRandom
+  FaRandom,
+  FaInfoCircle
 ].map(
   icon => icon as unknown as React.FC<React.SVGProps<SVGSVGElement>>
 );
 
-const [Search, Home, Bars, Times, Heart, List, Random] = icons;
+const [Search, Home, Bars, Times, List, Random, InfoCircle] = icons;
 
 export default function Navbar() {
   const router = useRouter()
@@ -65,8 +65,9 @@ export default function Navbar() {
     icon: React.FC<React.SVGProps<SVGSVGElement>>;
   }[] = [
     { href: "/", label: "Inicio", icon: Home },
+    { href: "/about", label: "Saber mas", icon: InfoCircle },
     { href: "/pokemon", label: "Pokédex", icon: List },
-    { href: "/favorites", label: "Favoritos", icon: Heart },
+    /* { href: "/favorites", label: "Favoritos", icon: Heart }, */
   ];
 
   return (
@@ -175,7 +176,6 @@ export default function Navbar() {
                     type="submit"
                     className="ml-2 text-pink-600 hover:text-pink-700 dark:text-pink-400 dark:hover:text-pink-300 transition-colors duration-300"
                   >
-                    <Search className="w-4 h-4" />
                   </button>
                 </div>
               </form>
@@ -205,17 +205,6 @@ export default function Navbar() {
               <Random className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
               <span className="font-medium">Aleatorio</span>
             </button>
-
-            {/* Mobile CTA */}
-            <div className="px-3 py-2 mt-4">
-              <Link
-                href="/pokemon"
-                onClick={closeMenu}
-                className="block w-full text-center bg-gradient-to-r from-pink-500 to-blue-500 text-white py-3 px-4 rounded-full font-semibold hover:from-pink-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105 shadow-lg"
-              >
-                Explorar Pokédex
-              </Link>
-            </div>
           </div>
         </div>
       </div>
