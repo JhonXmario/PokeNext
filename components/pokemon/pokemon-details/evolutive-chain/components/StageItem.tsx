@@ -1,6 +1,5 @@
-// components/pokemon/pokemon-data/evolution/components/EvolutionStageItem.tsx
 import { useState } from "react"
-
+import Link from "next/link"
 interface EvolutionStageItemProps {
   stage: {
     name: string
@@ -15,12 +14,13 @@ export const EvolutionStageItem = ({ stage }: EvolutionStageItemProps) => {
 
   return (
     <div
-      className={`relative p-4 rounded-xl transition-all duration-300 ${
+      className={`relative p-4 rounded-xl transition-all duration-300 hover:cursor-pointer ${
         stage.isCurrent
           ? "bg-gradient-to-r from-pink-100 to-blue-100 dark:from-pink-900/30 dark:to-blue-900/30 ring-2 ring-pink-500 scale-105"
           : "bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600"
       }`}
     >
+    <Link href={`/pokemon/${stage.name}`} className="block">
       {/* Indicador de Pokémon actual */}
       {stage.isCurrent && (
         <div className="absolute -top-2 -right-2 bg-pink-500 text-white text-xs px-2 py-1 rounded-full font-semibold">
@@ -50,6 +50,7 @@ export const EvolutionStageItem = ({ stage }: EvolutionStageItemProps) => {
           {stage.name}
         </span>
       </div>
+      </Link>
     </div>
   )
 }

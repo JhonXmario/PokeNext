@@ -30,10 +30,10 @@ export default function PokemonCard({
   const [isFavorite, setIsFavorite] = useState(false)
   const [imageLoaded, setImageLoaded] = useState(false)
 
-  const toggleFavorite = (e: React.MouseEvent) => {
+  /* const toggleFavorite = (e: React.MouseEvent) => {
     e.preventDefault()
     setIsFavorite(!isFavorite)
-  }
+  } */
 
   const formatId = (id?: number) => {
     return id ? `#${id.toString().padStart(3, "0")}` : ""
@@ -45,13 +45,13 @@ export default function PokemonCard({
         {/* Header con ID y favorito */}
         <div className="flex justify-between items-center p-4 pb-2">
           <span className="text-sm font-bold text-gray-500 dark:text-gray-400">{formatId(id)}</span>
-          <button
+          {/* <button
             onClick={toggleFavorite}
             className="text-pink-500 hover:text-pink-600 transition-colors duration-300 hover:scale-110 transform"
             aria-label={isFavorite ? "Quitar de favoritos" : "Añadir a favoritos"}
           >
             {isFavorite ? <Heart className="w-5 h-5" /> : <RegHeart className="w-5 h-5" />}
-          </button>
+          </button> */}
         </div>
 
         {/* Imagen del Pokémon */}
@@ -108,7 +108,7 @@ export default function PokemonCard({
           </div>
 
           {/* Botón de acción */}
-          <button className="w-full btn-primary text-sm py-2 group-hover:shadow-lg transition-all duration-300">
+          <button className="w-full btn-primary text-sm py-2 group-hover:shadow-lg transition-all duration-300 hover:cursor-pointer">
             Ver detalles
           </button>
         </div>
