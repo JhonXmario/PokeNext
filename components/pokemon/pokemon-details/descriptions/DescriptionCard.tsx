@@ -1,4 +1,3 @@
-// components/pokemon/pokemon-data/description/DescriptionCard.tsx
 "use client";
 
 import {

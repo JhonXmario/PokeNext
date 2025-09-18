@@ -19,7 +19,7 @@ export const PokemonImageHeader = ({ pokemonId, isShiny, onToggleShiny }: Pokemo
       </span>
       <button
         onClick={onToggleShiny}
-        className="flex items-center space-x-2 px-3 py-2 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-lg hover:bg-yellow-200 dark:hover:bg-yellow-800 transition-all duration-300 hover:scale-105"
+        className="flex items-center space-x-2 px-3 py-2 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-lg hover:bg-yellow-200 dark:hover:bg-yellow-800 transition-all duration-300 hover:scale-105 hover:cursor-pointer"
         title={isShiny ? "Ver normal" : "Ver shiny"}
       >
         {isShiny ? <Star className="w-4 h-4" /> : <RegStar className="w-4 h-4" />}
