@@ -1,17 +1,17 @@
 import Link from "next/link"
-import { FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaEnvelope } from "react-icons/fa"
+import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaPaypal } from "react-icons/fa"
 
 const icons = [
   FaGithub, 
   FaLinkedin, 
-  FaTwitter, 
   FaInstagram, 
   FaEnvelope,
+  FaPaypal,
 ].map(
   icon => icon as unknown as React.FC<React.SVGProps<SVGSVGElement>>
 );
 
-const [Github, Linkedin, Twitter, Instagram, Envelope,] = icons;
+const [Github, Linkedin, Instagram, Envelope, Paypal] = icons;
 
 export default function FooterSection() {
   const currentYear = new Date().getFullYear()
@@ -29,14 +29,14 @@ export default function FooterSection() {
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white">PokéNext</h3>
             </div>
             <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-md">
-              Una Pokédex moderna y completa construida con Next.js y la PokéAPI oficial. Explora el fascinante mundo de
+              Una Pokédex moderna construida con Next.js y la PokéAPI oficial. Explora el fascinante mundo de
               los Pokémon con datos actualizados y una interfaz intuitiva.
             </p>
 
             {/* Redes sociales */}
             <div className="flex space-x-4">
               <Link
-                href="https://github.com"
+                href="https://github.com/JhonXmario"
                 target="_blank"
                 className="w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-100 dark:hover:bg-pink-900 transition-colors duration-300"
                 aria-label="GitHub"
@@ -44,7 +44,7 @@ export default function FooterSection() {
                 <Github className="w-5 h-5 text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400" />
               </Link>
               <Link
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/jhon-mario-diaz-02a811311"
                 target="_blank"
                 className="w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-100 dark:hover:bg-pink-900 transition-colors duration-300"
                 aria-label="LinkedIn"
@@ -52,15 +52,7 @@ export default function FooterSection() {
                 <Linkedin className="w-5 h-5 text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400" />
               </Link>
               <Link
-                href="https://twitter.com"
-                target="_blank"
-                className="w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-100 dark:hover:bg-pink-900 transition-colors duration-300"
-                aria-label="Twitter"
-              >
-                <Twitter className="w-5 h-5 text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400" />
-              </Link>
-              <Link
-                href="https://instagram.com"
+                href="https://www.instagram.com/jhonmarioxyz"
                 target="_blank"
                 className="w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-100 dark:hover:bg-pink-900 transition-colors duration-300"
                 aria-label="Instagram"
@@ -70,40 +62,21 @@ export default function FooterSection() {
             </div>
           </div>
 
-          {/* Enlaces rápidos */}
+          {/* Apoyo economico */}
           <div>
-            <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Enlaces rápidos</h4>
+            <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Contribución</h4>
             <ul className="space-y-3">
+              <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-md">
+              ¿Te gusta mi PokéNext? ¡Considera apoyar el desarrollo con una contribución voluntaria!
+              </p>
               <li>
                 <Link
-                  href="/"
-                  className="text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400 transition-colors duration-300"
-                >
-                  Inicio
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/pokemon"
-                  className="text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400 transition-colors duration-300"
-                >
-                  Pokédex
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/types"
-                  className="text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400 transition-colors duration-300"
-                >
-                  Tipos
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/favorites"
-                  className="text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400 transition-colors duration-300"
-                >
-                  Favoritos
+                  href="https://paypal.me/JhonMarioXYZ"
+                  target="_blank"
+                  className="w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-100 dark:hover:bg-pink-900 transition-colors duration-300" 
+                  aria-label="Donar via PayPal"
+                  >
+                <Paypal className="w-5 h-5 text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400" />
                 </Link>
               </li>
             </ul>
@@ -135,21 +108,9 @@ export default function FooterSection() {
         <div className="border-t border-gray-200 dark:border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-sm text-gray-500 dark:text-gray-400">
-              © {currentYear} PokédNext. Todos los derechos reservados.
+              © {currentYear} PokéNext. Todos los derechos reservados.
             </div>
             <div className="flex items-center space-x-6 text-sm">
-              <Link
-                href="/privacy"
-                className="text-gray-500 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400 transition-colors duration-300"
-              >
-                Privacidad
-              </Link>
-              <Link
-                href="/terms"
-                className="text-gray-500 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400 transition-colors duration-300"
-              >
-                Términos
-              </Link>
               <span className="text-gray-400 dark:text-gray-600">
                 Powered by{" "}
                 <Link
