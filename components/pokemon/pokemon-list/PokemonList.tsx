@@ -3,7 +3,7 @@
 import { usePokemonList } from "@/hooks/use-pokemon-list"
 import AdvancedPokemonFilters from "./PokemonFilter"
 import PokemonCard from "./PokemonCard"
-import Pagination from "@/components/ui/Pagination"
+import Pagination from "@/components/pokemon/pokemon-list/Pagination"
 import { FaSpinner } from "react-icons/fa"
 import type { Pokemon } from "@/types/pokemon-types"
 
