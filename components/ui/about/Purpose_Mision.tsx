@@ -1,4 +1,5 @@
 import { FaCode, FaHeart } from "react-icons/fa";
+import Image from "next/image";
 
 const icons = [FaCode, FaHeart].map(
   (icon) => icon as unknown as React.FC<React.SVGProps<SVGSVGElement>>
@@ -58,9 +59,13 @@ export function PurposeAndMision() {
 
           <div className="bg-gradient-to-br from-pink-50 to-blue-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-8">
             <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-r from-pink-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-white font-bold text-2xl">P</span>
-              </div>
+              <Image
+                src="/logo.png"
+                alt="PokéNext Logo"
+                width={50}
+                height={50}
+                className="w-20 h-20 object-contain flex items-center justify-center mx-auto mb-6"
+              />
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                 Misión del Proyecto
               </h3>

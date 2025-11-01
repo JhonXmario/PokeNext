@@ -1,49 +1,56 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
-import Link from "next/link"
-import type { FormEvent } from "react"
-import { FaSearch, FaHome, FaBars, FaTimes, FaList, FaRandom, FaInfoCircle } from "react-icons/fa"
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import type { FormEvent } from "react";
+import Image from "next/image";
+import {
+  FaSearch,
+  FaHome,
+  FaBars,
+  FaTimes,
+  FaList,
+  FaRandom,
+  FaInfoCircle,
+} from "react-icons/fa";
 
 const icons = [
-  FaSearch, 
-  FaHome, 
-  FaBars, 
+  FaSearch,
+  FaHome,
+  FaBars,
   FaTimes,
-  FaList, 
+  FaList,
   FaRandom,
-  FaInfoCircle
-].map(
-  icon => icon as unknown as React.FC<React.SVGProps<SVGSVGElement>>
-);
+  FaInfoCircle,
+].map((icon) => icon as unknown as React.FC<React.SVGProps<SVGSVGElement>>);
 
 const [Search, Home, Bars, Times, List, Random, InfoCircle] = icons;
 
 export default function Navbar() {
-  const router = useRouter()
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
+  const router = useRouter();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   // Detectar scroll para añadir efecto de sombra
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleSearch = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const form = event.target as HTMLFormElement
-    const pokemonName = form.pokemon.value.trim().toLowerCase()
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const pokemonName = form.pokemon.value.trim().toLowerCase();
     if (pokemonName) {
-      router.push(`/pokemon/${pokemonName}`)
-      form.reset()
-      setIsMenuOpen(false) // Cerrar menú móvil después de buscar
+      router.push(`/pokemon/${pokemonName}`);
+      form.reset();
+      setIsMenuOpen(false); // Cerrar menú móvil después de buscar
     }
-  }
+  };
 
   const handleRandom = () => {
     const randomID = Math.floor(Math.random() * 1025) + 1;
@@ -52,12 +59,12 @@ export default function Navbar() {
   };
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   const closeMenu = () => {
-    setIsMenuOpen(false)
-  }
+    setIsMenuOpen(false);
+  };
 
   const navigationLinks: {
     href: string;
@@ -73,31 +80,44 @@ export default function Navbar() {
   return (
     <nav
       className={`navbar transition-all duration-300 ${
-        isScrolled ? "shadow-lg backdrop-blur-sm bg-white/95 dark:bg-gray-900/95" : ""
+        isScrolled
+          ? "shadow-lg backdrop-blur-sm bg-white/95 dark:bg-gray-900/95"
+          : ""
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3 group" onClick={closeMenu}>
+          <Link
+            href="/"
+            className="flex items-center space-x-3 group"
+            onClick={closeMenu}
+          >
             <div className="relative">
-              <div className="w-10 h-10 bg-gradient-to-r from-pink-500 to-blue-500 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                <span className="text-white font-bold text-lg">P</span>
+              <div className="flex items-center space-x-3">
+                <Image
+                  src="/logo.png"
+                  alt="PokéNext Logo"
+                  width={50}
+                  height={50}
+                  className="w-14 h-14 object-contain"
+                />
               </div>
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full animate-pulse"></div>
             </div>
             <div className="hidden sm:block">
               <h1 className="font-bold text-xl bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent group-hover:from-pink-700 group-hover:to-blue-700 transition-all duration-300">
-                Pokédex
+                PokéNext
               </h1>
-              <p className="text-xs text-gray-500 dark:text-gray-400 -mt-1">Gotta Catch 'Em All</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400 -mt-1">
+                Gotta Catch 'Em All
+              </p>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navigationLinks.map((link) => {
-              const IconComponent = link.icon
+              const IconComponent = link.icon;
               return (
                 <Link
                   key={link.href}
@@ -108,7 +128,7 @@ export default function Navbar() {
                   <span className="font-medium">{link.label}</span>
                   <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-pink-500 to-blue-500 group-hover:w-full transition-all duration-300"></div>
                 </Link>
-              )
+              );
             })}
             {/* Botón Aleatorio Desktop */}
             <button
@@ -149,7 +169,11 @@ export default function Navbar() {
               className="text-gray-700 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 transition-colors duration-300 p-2"
               aria-label="Toggle menu"
             >
-              {isMenuOpen ? <Times className="w-6 h-6" /> : <Bars className="w-6 h-6" />}
+              {isMenuOpen ? (
+                <Times className="w-6 h-6" />
+              ) : (
+                <Bars className="w-6 h-6" />
+              )}
             </button>
           </div>
         </div>
@@ -157,7 +181,9 @@ export default function Navbar() {
         {/* Mobile Navigation Menu */}
         <div
           className={`md:hidden transition-all duration-300 ease-in-out ${
-            isMenuOpen ? "max-h-96 opacity-100 visible" : "max-h-0 opacity-0 invisible overflow-hidden"
+            isMenuOpen
+              ? "max-h-96 opacity-100 visible"
+              : "max-h-0 opacity-0 invisible overflow-hidden"
           }`}
         >
           <div className="px-2 pt-2 pb-3 space-y-1 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
@@ -175,15 +201,14 @@ export default function Navbar() {
                   <button
                     type="submit"
                     className="ml-2 text-pink-600 hover:text-pink-700 dark:text-pink-400 dark:hover:text-pink-300 transition-colors duration-300"
-                  >
-                  </button>
+                  ></button>
                 </div>
               </form>
             </div>
 
             {/* Mobile Navigation Links */}
             {navigationLinks.map((link) => {
-              const IconComponent = link.icon
+              const IconComponent = link.icon;
               return (
                 <Link
                   key={link.href}
@@ -194,7 +219,7 @@ export default function Navbar() {
                   <IconComponent className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
                   <span className="font-medium">{link.label}</span>
                 </Link>
-              )
+              );
             })}
 
             {/* Botón Aleatorio Móvil */}
@@ -209,5 +234,5 @@ export default function Navbar() {
         </div>
       </div>
     </nav>
-  )
+  );
 }

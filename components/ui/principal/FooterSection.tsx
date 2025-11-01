@@ -1,20 +1,21 @@
-import Link from "next/link"
-import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaPaypal } from "react-icons/fa"
-
-const icons = [
-  FaGithub, 
-  FaLinkedin, 
-  FaInstagram, 
+import Link from "next/link";
+import {
+  FaGithub,
+  FaLinkedin,
+  FaInstagram,
   FaEnvelope,
   FaPaypal,
-].map(
-  icon => icon as unknown as React.FC<React.SVGProps<SVGSVGElement>>
+} from "react-icons/fa";
+import Image from "next/image";
+
+const icons = [FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaPaypal].map(
+  (icon) => icon as unknown as React.FC<React.SVGProps<SVGSVGElement>>
 );
 
 const [Github, Linkedin, Instagram, Envelope, Paypal] = icons;
 
 export default function FooterSection() {
-  const currentYear = new Date().getFullYear()
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-20">
@@ -23,14 +24,21 @@ export default function FooterSection() {
           {/* Logo y descripción */}
           <div className="md:col-span-2">
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-r from-pink-500 to-blue-500 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-lg">P</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">PokéNext</h3>
+              <Image
+                src="/logo.png"
+                alt="PokéNext Logo"
+                width={50}
+                height={50}
+                className="w-10 h-10 object-contain"
+              />
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                PokéNext
+              </h3>
             </div>
             <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-md">
-              Una Pokédex moderna construida con Next.js y la PokéAPI oficial. Explora el fascinante mundo de
-              los Pokémon con datos actualizados y una interfaz intuitiva.
+              Una Pokédex moderna construida con Next.js y la PokéAPI oficial.
+              Explora el fascinante mundo de los Pokémon con datos actualizados
+              y una interfaz intuitiva.
             </p>
 
             {/* Redes sociales */}
@@ -64,19 +72,22 @@ export default function FooterSection() {
 
           {/* Apoyo economico */}
           <div>
-            <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Contribución</h4>
+            <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+              Contribución
+            </h4>
             <ul className="space-y-3">
               <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-md">
-              ¿Te gusta mi PokéNext? ¡Considera apoyar el desarrollo con una contribución voluntaria!
+                ¿Te gusta mi PokéNext? ¡Considera apoyar el desarrollo con una
+                contribución voluntaria!
               </p>
               <li>
                 <Link
                   href="https://paypal.me/JhonMarioXYZ"
                   target="_blank"
-                  className="w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-100 dark:hover:bg-pink-900 transition-colors duration-300" 
+                  className="w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-100 dark:hover:bg-pink-900 transition-colors duration-300"
                   aria-label="Donar via PayPal"
-                  >
-                <Paypal className="w-5 h-5 text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400" />
+                >
+                  <Paypal className="w-5 h-5 text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400" />
                 </Link>
               </li>
             </ul>
@@ -84,7 +95,9 @@ export default function FooterSection() {
 
           {/* Contacto */}
           <div>
-            <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Contacto</h4>
+            <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+              Contacto
+            </h4>
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <Envelope className="w-4 h-4 text-gray-500 dark:text-gray-400" />
@@ -119,8 +132,7 @@ export default function FooterSection() {
                   className="text-yellow-600 hover:text-yellow-700 dark:text-yellow-400 dark:hover:text-yellow-300"
                 >
                   PokéAPI
-                </Link>
-                {" "} {" "}
+                </Link>{" "}
                 <Link
                   href="https://nextjs.org/"
                   target="_blank"
@@ -134,5 +146,5 @@ export default function FooterSection() {
         </div>
       </div>
     </footer>
-  )
+  );
 }
