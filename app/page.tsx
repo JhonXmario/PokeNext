@@ -1,9 +1,10 @@
-import HeroSection from '@/components/ui/HeroSection';
-import FooterSection from '@/components/ui/FooterSection';
+import HeroSection from "@/components/ui/principal/HeroSection";
+import FooterSection from "@/components/ui/principal/FooterSection";
+import Navbar from "@/components/ui/principal/Navbar";
 export default async function PokemonList() {
-
   return (
-    <div >
+    <div>
+      <Navbar />
       <HeroSection />
       <FooterSection />
     </div>

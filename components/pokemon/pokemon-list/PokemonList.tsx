@@ -1,20 +1,13 @@
 "use client"
 
-import { usePokemonList } from "../../hooks/use-pokemon-list"
+import { usePokemonList } from "@/hooks/use-pokemon-list"
+import AdvancedPokemonFilters from "./PokemonFilter"
 import PokemonCard from "./PokemonCard"
-import PokemonFilters from "./PokemonFilter"
-import Pagination from "../ui/Pagination"
+import Pagination from "@/components/pokemon/pokemon-list/Pagination"
 import { FaSpinner } from "react-icons/fa"
+import type { Pokemon } from "@/types/pokemon-types"
 
-interface Pokemon {
-  id: number
-  name: string
-  sprite: string
-  types: string[]
-  abilities: string[]
-  height: number
-  weight: number
-}
+const Spiner = FaSpinner as unknown as React.FC<React.SVGProps<SVGSVGElement>>;
 
 interface PokemonListProps {
   initialPokemons: Pokemon[]
@@ -27,39 +20,55 @@ export default function PokemonList({ initialPokemons, itemsPerPage = 20 }: Poke
     setSearchTerm,
     selectedType,
     setSelectedType,
+    selectedGeneration,
+    setSelectedGeneration,
+    selectedGame,
+    setSelectedGame,
     currentPage,
     setCurrentPage,
     currentPokemons,
     totalPages,
     availableTypes,
+    availableGenerations,
+    availableGames,
     isLoading,
     totalResults,
+    clearAllFilters,
   } = usePokemonList({ initialPokemons, itemsPerPage })
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
       <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Pokédex </h1>
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Pokédex Avanzada</h1>
         <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-          Explora la colección completa de Pokémon. Usa los filtros para encontrar exactamente lo que buscas.
+          Explora nuestra colección completa con filtros avanzados por tipo, generación y juego de origen.
         </p>
       </div>
 
-      {/* Filtros */}
-      <PokemonFilters
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        selectedType={selectedType}
-        setSelectedType={setSelectedType}
-        availableTypes={availableTypes}
-        totalResults={totalResults}
-      />
+      {/* Filtros Avanzados */}
+      <div className="mb-8">
+        <AdvancedPokemonFilters
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          selectedType={selectedType}
+          setSelectedType={setSelectedType}
+          selectedGeneration={selectedGeneration}
+          setSelectedGeneration={setSelectedGeneration}
+          selectedGame={selectedGame}
+          setSelectedGame={setSelectedGame}
+          availableTypes={availableTypes}
+          availableGenerations={availableGenerations}
+          availableGames={availableGames}
+          totalResults={totalResults}
+          onClearFilters={clearAllFilters}
+        />
+      </div>
 
       {/* Loading state */}
       {isLoading && (
         <div className="flex items-center justify-center py-12">
-          <FaSpinner className="w-8 h-8 text-pink-600 animate-spin" />
+          <Spiner className="w-8 h-8 text-pink-600 animate-spin" />
           <span className="ml-3 text-lg text-gray-600 dark:text-gray-400">Cargando Pokémon...</span>
         </div>
       )}
@@ -88,7 +97,12 @@ export default function PokemonList({ initialPokemons, itemsPerPage = 20 }: Poke
                 <span className="text-4xl">🔍</span>
               </div>
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">No se encontraron Pokémon</h3>
-              <p className="text-gray-600 dark:text-gray-400">Intenta ajustar tus filtros de búsqueda</p>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                Intenta ajustar tus filtros de búsqueda para encontrar más resultados
+              </p>
+              <button onClick={clearAllFilters} className="btn-primary px-6 py-3 text-sm">
+                Limpiar todos los filtros
+              </button>
             </div>
           )}
 

@@ -1,0 +1,5 @@
+export { Beneficts } from './about/Beneficts'
+export { Characteristics } from './about/Characteristics'
+export { HeroicSection } from './about/HeroSection'
+export { PurposeAndMision } from './about/Purpose_Mision'
+export { Technologies } from './about/Technologies'

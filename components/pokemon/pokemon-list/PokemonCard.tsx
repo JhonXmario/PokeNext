@@ -1,20 +1,22 @@
 "use client"
 
 import type React from "react"
-
+import { PokemonCardProps } from "@/types/pokemon-types"
 import Link from "next/link"
 import { useState } from "react"
 import { FaHeart, FaRegHeart, FaRuler, FaWeight } from "react-icons/fa"
 
-interface PokemonCardProps {
-  id: number
-  name: string
-  sprite: string
-  types: string[]
-  abilities: string[]
-  height: number
-  weight: number
-}
+const icons = [
+  FaHeart,
+  FaRegHeart,
+  FaRuler,
+  FaWeight,
+].map(
+  icon => icon as unknown as React.FC<React.SVGProps<SVGSVGElement>>
+);
+
+const [Heart, RegHeart, Ruler, Weight,] = icons;
+
 
 export default function PokemonCard({
   id,
@@ -28,11 +30,10 @@ export default function PokemonCard({
   const [isFavorite, setIsFavorite] = useState(false)
   const [imageLoaded, setImageLoaded] = useState(false)
 
-  const toggleFavorite = (e: React.MouseEvent) => {
+  /* const toggleFavorite = (e: React.MouseEvent) => {
     e.preventDefault()
     setIsFavorite(!isFavorite)
-    // Aquí podrías añadir lógica para guardar en localStorage o base de datos
-  }
+  } */
 
   const formatId = (id?: number) => {
     return id ? `#${id.toString().padStart(3, "0")}` : ""
@@ -44,13 +45,13 @@ export default function PokemonCard({
         {/* Header con ID y favorito */}
         <div className="flex justify-between items-center p-4 pb-2">
           <span className="text-sm font-bold text-gray-500 dark:text-gray-400">{formatId(id)}</span>
-          <button
+          {/* <button
             onClick={toggleFavorite}
             className="text-pink-500 hover:text-pink-600 transition-colors duration-300 hover:scale-110 transform"
             aria-label={isFavorite ? "Quitar de favoritos" : "Añadir a favoritos"}
           >
-            {isFavorite ? <FaHeart className="w-5 h-5" /> : <FaRegHeart className="w-5 h-5" />}
-          </button>
+            {isFavorite ? <Heart className="w-5 h-5" /> : <RegHeart className="w-5 h-5" />}
+          </button> */}
         </div>
 
         {/* Imagen del Pokémon */}
@@ -88,11 +89,11 @@ export default function PokemonCard({
           {/* Estadísticas básicas */}
           <div className="flex justify-between items-center text-xs text-gray-600 dark:text-gray-400 mb-3">
             <div className="flex items-center space-x-1">
-              <FaRuler className="w-3 h-3" />
+              <Ruler className="w-3 h-3" />
               <span>{(height / 10).toFixed(1)}m</span>
             </div>
             <div className="flex items-center space-x-1">
-              <FaWeight className="w-3 h-3" />
+              <Weight className="w-3 h-3" />
               <span>{(weight / 10).toFixed(1)}kg</span>
             </div>
           </div>
@@ -107,7 +108,7 @@ export default function PokemonCard({
           </div>
 
           {/* Botón de acción */}
-          <button className="w-full btn-primary text-sm py-2 group-hover:shadow-lg transition-all duration-300">
+          <button className="w-full btn-primary text-sm py-2 group-hover:shadow-lg transition-all duration-300 hover:cursor-pointer">
             Ver detalles
           </button>
         </div>

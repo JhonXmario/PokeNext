@@ -39,9 +39,15 @@ body {
   transition: background 0.3s, color 0.3s;
   letter-spacing: 0.01em;
   margin: 0;
-  padding: 0 var(--spacing-md);
+  padding: 0;
   font-size: var(--font-size-base);
   line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+  body {
+    padding: 0 var(--spacing-md); /* 1rem de padding lateral, solo en desktop/tablet */
+  }
 }
 
 /* ========== Custom Scrollbar ========== */
