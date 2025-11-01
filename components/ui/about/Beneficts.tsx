@@ -63,7 +63,7 @@ export function Beneficts() {
               Explorar PokéNext
             </Link>
             <Link
-              href="https://github.com/JhonXmario/Frontend-Pokedex/tree/dev"
+              href="https://github.com/JhonXmario/PokeNext.git"
               target="_blank"
               className="flex items-center space-x-2 px-8 py-4 border-2 border-white/30 rounded-full hover:bg-white/10 transition-all duration-300"
             >
