@@ -1,13 +1,13 @@
-import { Suspense } from "react"
-import { notFound } from "next/navigation"
-import Navbar from "@/components/ui/principal/Navbar"
-import FooterSection from "@/components/ui/principal/FooterSection"
-import ButtonBack from "@/components/ui/ButtonBackToList"
-import DataPokemon from "@/components/pokemon/pokemon-details/DataPokemon"
-import { getCompletePokemonData } from "@/services/poke-details-api"
+import { Suspense } from "react";
+import { notFound } from "next/navigation";
+import Navbar from "@/components/ui/principal/Navbar";
+import FooterSection from "@/components/ui/principal/FooterSection";
+import ButtonBack from "@/components/ui/ButtonBackToList";
+import DataPokemon from "@/components/pokemon/pokemon-details/DataPokemon";
+import { getCompletePokemonData } from "@/services/poke-details-api";
 
 interface Props {
-  params: Promise<{ name: string }>
+  params: Promise<{ name: string }>;
 }
 
 // Loading component para la página completa
@@ -29,16 +29,16 @@ function PokemonDetailLoading() {
         ))}
       </div>
     </div>
-  )
+  );
 }
 
 export default async function PokemonDetailPage({ params }: Props) {
-  const { name } = await params
+  const { name } = await params;
 
-  const pokemonData = await getCompletePokemonData(name)
+  const pokemonData = await getCompletePokemonData(name);
 
   if (!pokemonData?.detail) {
-    notFound()
+    notFound();
   }
 
   return (
@@ -53,20 +53,20 @@ export default async function PokemonDetailPage({ params }: Props) {
           />
         </Suspense>
       </main>
-      <div >
+      <div>
         <ButtonBack />
       </div>
       <FooterSection />
     </div>
-  )
+  );
 }
 
 // Generar metadata dinámica
 export async function generateMetadata({ params }: Props) {
-  const { name } = await params
+  const { name } = await params;
 
   return {
-    title: `${name.charAt(0).toUpperCase() + name.slice(1)} - Pokédex`,
+    title: `${name.charAt(0).toUpperCase() + name.slice(1)} - PokéNext`,
     description: `Información detallada sobre ${name}, incluyendo estadísticas, evoluciones y más.`,
-  }
+  };
 }

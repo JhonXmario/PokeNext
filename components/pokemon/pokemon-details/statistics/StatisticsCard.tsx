@@ -31,7 +31,7 @@ export default function PokemonStatistics({ pokemon }: PokemonStatisticsProps) {
           {pokemon.stats.map((stat, index) => {
             const statName = stat.stat.name as keyof typeof STATS_CONFIG;
             const config = STATS_CONFIG[statName];
-            const IconComponent = config.icon;
+            const IconComponent = config.icon as unknown as React.FC<React.SVGProps<SVGSVGElement>>;
             const { rating, color: ratingColor } = getStatRating(stat.base_stat);
 
             return (

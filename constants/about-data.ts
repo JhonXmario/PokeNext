@@ -28,8 +28,7 @@ export const features = [
   {
     icon: Rocket,
     title: "Rendimiento Óptimo",
-    description:
-      "Construido con Next.js para una navegación rápida y fluida.",
+    description: "Construido con Next.js para una navegación rápida y fluida.",
   },
 ];
 

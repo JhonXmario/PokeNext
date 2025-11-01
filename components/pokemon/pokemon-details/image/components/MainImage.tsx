@@ -49,7 +49,7 @@ export const MainPokemonImage = ({
 
       {/* Efecto de brillo para shiny */}
       {isShiny && imageLoaded && (
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-500/10 to-transparent animate-pulse"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gray-800/10 to-transparent animate-pulse"></div>
       )}
     </div>
   </div>

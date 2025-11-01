@@ -1,4 +1,3 @@
-// components/pokemon/statistics/StatSummary.tsx
 interface StatSummaryProps {
   totalStats: number;
   statCount: number;

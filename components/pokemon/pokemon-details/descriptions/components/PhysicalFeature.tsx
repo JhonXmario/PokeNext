@@ -1,15 +1,12 @@
-import { FaRuler, FaWeight } from "react-icons/fa"
+import { FaRuler, FaWeight } from "react-icons/fa";
 
 interface PhysicalFeatureProps {
-  height: number
-  weight: number
+  height: number;
+  weight: number;
 }
 
-const icons = [
-  FaRuler,
-  FaWeight,
-].map(
-  icon => icon as unknown as React.FC<React.SVGProps<SVGSVGElement>>
+const icons = [FaRuler, FaWeight].map(
+  (icon) => icon as unknown as React.FC<React.SVGProps<SVGSVGElement>>
 );
 const [Ruler, Weight] = icons;
 
@@ -22,7 +19,9 @@ export const PhysicalFeature = ({ height, weight }: PhysicalFeatureProps) => (
       <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
         <div className="flex items-center space-x-2 mb-2">
           <Ruler className="w-4 h-4 text-pink-600 dark:text-pink-400" />
-          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Altura</span>
+          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            Altura
+          </span>
         </div>
         <span className="text-2xl font-bold text-gray-900 dark:text-white">
           {(height / 10).toFixed(1)}m
@@ -31,7 +30,9 @@ export const PhysicalFeature = ({ height, weight }: PhysicalFeatureProps) => (
       <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
         <div className="flex items-center space-x-2 mb-2">
           <Weight className="w-4 h-4 text-pink-600 dark:text-pink-400" />
-          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Peso</span>
+          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            Peso
+          </span>
         </div>
         <span className="text-2xl font-bold text-gray-900 dark:text-white">
           {(weight / 10).toFixed(1)}kg
@@ -39,4 +40,4 @@ export const PhysicalFeature = ({ height, weight }: PhysicalFeatureProps) => (
       </div>
     </div>
   </div>
-)
+);

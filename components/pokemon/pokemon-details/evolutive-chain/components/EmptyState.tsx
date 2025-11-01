@@ -1,4 +1,3 @@
-// components/pokemon/pokemon-data/evolution/components/EvolutionEmptyState.tsx
 import { FaQuestionCircle } from "react-icons/fa"
 
 const QuestionCircle = FaQuestionCircle as unknown as React.FC<React.SVGProps<SVGSVGElement>>;

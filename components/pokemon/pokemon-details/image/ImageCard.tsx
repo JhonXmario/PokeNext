@@ -1,4 +1,3 @@
-// components/pokemon/pokemon-data/image/ImageCard.tsx
 "use client"
 
 import { useState } from "react"
