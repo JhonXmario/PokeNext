@@ -6,7 +6,7 @@ export async function getPokemon(name: string) {
       `https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`
     );
     if (!response.ok) {
-      console.error(`Failed to fetch details for ${name}`);
+      console.error(`Error al capturar los datos de ${name}`);
       return null;
     }
     const data = await response.json();
