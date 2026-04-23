@@ -23,17 +23,19 @@ export const AdditionalSprites = ({ sprites }: AdditionalSpritesProps) => (
     </div>
 
     {/* Sprite Reverse */}
-    <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3 text-center">
-      <img
-        src={sprites.back_default || "/placeholder.svg"}
-        alt="Sprite Reverse"
-        className="w-16 h-16 mx-auto mb-2"
-        loading="lazy"
-      />
-      <span className="text-xs text-gray-600 dark:text-gray-400">
-        Sprite Reverse
-      </span>
-    </div>
+    {sprites.back_default && (
+      <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3 text-center">
+        <img
+          src={sprites.back_default || "/placeholder.svg"}
+          alt="Sprite Reverse"
+          className="w-16 h-16 mx-auto mb-2"
+          loading="lazy"
+        />
+        <span className="text-xs text-gray-600 dark:text-gray-400">
+          Sprite Reverse
+        </span>
+      </div>
+    )}
 
     {/* Sprite Shiny */}
     {sprites.front_shiny && (

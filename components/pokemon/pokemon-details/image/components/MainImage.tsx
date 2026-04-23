@@ -1,11 +1,11 @@
 interface MainPokemonImageProps {
-  sprite: string | null
-  pokemonName: string
-  isShiny: boolean
-  imageLoaded: boolean
-  imageError: boolean
-  onImageLoad: () => void
-  onImageError: () => void
+  sprite: string | null;
+  pokemonName: string;
+  isShiny: boolean;
+  imageLoaded: boolean;
+  imageError: boolean;
+  onImageLoad: () => void;
+  onImageError: () => void;
 }
 
 export const MainPokemonImage = ({
@@ -15,7 +15,7 @@ export const MainPokemonImage = ({
   imageLoaded,
   imageError,
   onImageLoad,
-  onImageError
+  onImageError,
 }: MainPokemonImageProps) => (
   <div className="relative mb-6">
     <div className="w-full h-80 flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 rounded-2xl overflow-hidden relative">
@@ -41,16 +41,11 @@ export const MainPokemonImage = ({
           alt={`${pokemonName} ${isShiny ? "shiny" : "normal"}`}
           className={`w-64 h-64 object-contain transition-all duration-500 ${
             imageLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"
-          } ${isShiny ? "drop-shadow-lg filter hue-rotate-15" : ""}`}
+          }`}
           onLoad={onImageLoad}
           onError={onImageError}
         />
       )}
-
-      {/* Efecto de brillo para shiny */}
-      {isShiny && imageLoaded && (
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gray-800/10 to-transparent animate-pulse"></div>
-      )}
     </div>
   </div>
-)
+);
