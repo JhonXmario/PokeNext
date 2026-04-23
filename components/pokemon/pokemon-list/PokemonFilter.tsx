@@ -93,7 +93,7 @@ export default function AdvancedPokemonFilters({
         <div className="flex items-center justify-between">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="flex items-center space-x-3 text-white hover:bg-white/10 rounded-lg px-3 py-2 transition-all duration-200 flex-1 sm:flex-none"
+            className="flex items-center space-x-3 hover:cursor-pointer text-white hover:bg-white/10 rounded-lg px-3 py-2 transition-all duration-200 flex-1 sm:flex-none"
           >
             <Filter className="w-5 h-5" />
             <div className="flex flex-col items-start sm:flex-row sm:items-center sm:space-x-2">

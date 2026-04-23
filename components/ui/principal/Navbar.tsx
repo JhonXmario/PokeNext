@@ -81,7 +81,7 @@ export default function Navbar() {
     <nav
       className={`navbar transition-all duration-300 ${
         isScrolled
-          ? "shadow-lg backdrop-blur-sm bg-white/95 dark:bg-gray-900/95"
+          ? "shadow-lg backdrop-blur-sm bg-white/85 dark:bg-gray-900/85"
           : ""
       }`}
     >
