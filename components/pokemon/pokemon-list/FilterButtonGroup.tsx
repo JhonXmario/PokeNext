@@ -47,7 +47,7 @@ export default function FilterButtonGroup({
               : "bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 hover:scale-102"
           }`}
         >
-          Todos los tipos
+          Todos
         </button>
         
         {visibleOptions.map((option) => {
