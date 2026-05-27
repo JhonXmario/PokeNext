@@ -12,7 +12,7 @@ export default function FilterButtonGroup({
   options,
   selectedValue,
   onChange,
-  maxVisible = 6,
+  maxVisible = 8,
 }: FilterButtonGroupProps) {
   const [showAll, setShowAll] = useState(false)
 
@@ -21,44 +21,70 @@ export default function FilterButtonGroup({
 
   return (
     <div className="space-y-3">
-      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">{label}</label>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex items-center justify-between">
+        <label className="text-sm font-semibold text-gray-700 dark:text-gray-300 tracking-wide uppercase">
+          {label}
+        </label>
+        {selectedValue && (
+          <button
+            type="button"
+            onClick={() => onChange("")}
+            className="text-xs font-medium text-pink-600 dark:text-pink-400 hover:underline"
+          >
+            Reestablecer tipo
+          </button>
+        )}
+      </div>
+      
+      {/* Container responsivo */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-9 gap-2">
         <button
           type="button"
           onClick={() => onChange("")}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+          className={`px-3 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 flex items-center justify-center border hover:cursor-pointer ${
             selectedValue === ""
-              ? "bg-pink-600 text-white shadow-lg transform scale-105"
-              : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 hover:scale-105"
+              ? "bg-gray-900 text-white dark:bg-white dark:text-gray-900 border-transparent shadow-lg scale-105"
+              : "bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 hover:scale-102"
           }`}
         >
-          Todos
+          Todos los tipos
         </button>
-        {visibleOptions.map((option) => (
-          <button
-            key={option.value}
-            type="button"
-            onClick={() => onChange(option.value)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 flex items-center space-x-2 ${
-              selectedValue === option.value
-                ? "bg-pink-600 text-white shadow-lg transform scale-105"
-                : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 hover:scale-105"
-            }`}
-          >
-            {option.color && <div className={`w-3 h-3 rounded-full ${option.color}`}></div>}
-            <span>{option.label}</span>
-          </button>
-        ))}
+        
+        {visibleOptions.map((option) => {
+          const isSelected = selectedValue === option.value;
+          const bgClass = option.color || "bg-pink-600";
+          
+          return (
+            <button
+              key={option.value}
+              type="button"
+              onClick={() => onChange(option.value)}
+              className={`px-3 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 flex items-center justify-center space-x-2 border hover:cursor-pointer ${
+                isSelected
+                  ? `${bgClass} text-white border-transparent shadow-lg shadow-black/10 scale-105`
+                  : `bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 hover:scale-102`
+              }`}
+            >
+              {!isSelected && option.color && (
+                <div className={`w-2.5 h-2.5 rounded-full shrink-0 ${option.color}`}></div>
+              )}
+              <span className="truncate">{option.label}</span>
+            </button>
+          );
+        })}
       </div>
+
       {hasMore && (
-        <button
-          type="button"
-          onClick={() => setShowAll(!showAll)}
-          className="flex items-center space-x-2 text-sm text-pink-600 dark:text-pink-400 hover:text-pink-700 dark:hover:text-pink-300 transition-colors duration-200"
-        >
-          {showAll ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
-          <span>{showAll ? "Ver menos" : `Ver ${options.length - maxVisible} más`}</span>
-        </button>
+        <div className="flex justify-center pt-2">
+          <button
+            type="button"
+            onClick={() => setShowAll(!showAll)}
+            className="flex items-center space-x-2 text-sm font-semibold text-pink-600 dark:text-pink-400 hover:text-pink-700 dark:hover:text-pink-300 bg-pink-50 dark:bg-pink-900/10 px-4 py-2 rounded-xl transition-all duration-200 hover:cursor-pointer hover:bg-pink-100 dark:hover:bg-pink-900/20"
+          >
+            {showAll ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+            <span>{showAll ? "Ver menos tipos" : `Ver ${options.length - maxVisible} tipos más`}</span>
+          </button>
+        </div>
       )}
     </div>
   )

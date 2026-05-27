@@ -65,6 +65,27 @@ export const POKEMON_GAMES = [
   },
 ];
 
+export const POKEMON_TYPE_TRANSLATIONS: Record<string, string> = {
+  normal: "Normal",
+  fire: "Fuego",
+  water: "Agua",
+  electric: "Eléctrico",
+  grass: "Planta",
+  ice: "Hielo",
+  fighting: "Lucha",
+  poison: "Veneno",
+  ground: "Tierra",
+  flying: "Volador",
+  psychic: "Psíquico",
+  bug: "Bicho",
+  rock: "Roca",
+  ghost: "Fantasma",
+  dragon: "Dragón",
+  dark: "Siniestro",
+  steel: "Acero",
+  fairy: "Hada",
+};
+
 export const POKEMON_TYPE_COLORS: Record<string, string> = {
   normal: "bg-gray-400",
   fire: "bg-red-500",

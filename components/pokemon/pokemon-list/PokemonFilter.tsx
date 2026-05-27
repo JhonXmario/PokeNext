@@ -5,7 +5,7 @@ import { useState } from "react";
 import { FaSearch, FaTimes, FaFilter, FaGamepad, FaStar, FaLayerGroup, FaChevronDown, FaChevronUp } from "react-icons/fa";
 import FilterDropdown from "./FilterDropdown";
 import FilterButtonGroup from "./FilterButtonGroup";
-import { POKEMON_GENERATIONS, POKEMON_GAMES, POKEMON_TYPE_COLORS } from "@/constants/pokemon-data";
+import { POKEMON_GENERATIONS, POKEMON_GAMES, POKEMON_TYPE_COLORS, POKEMON_TYPE_TRANSLATIONS } from "@/constants/pokemon-data";
 import type { PokemonFiltersProps } from "@/types/pokemon-types";
 
 const icons = [
@@ -74,7 +74,7 @@ export default function AdvancedPokemonFilters({
   // Preparar opciones para botones de tipo
   const typeOptions = availableTypes.map((type) => ({
     value: type,
-    label: type.charAt(0).toUpperCase() + type.slice(1),
+    label: POKEMON_TYPE_TRANSLATIONS[type.toLowerCase()] || type.charAt(0).toUpperCase() + type.slice(1),
     color: POKEMON_TYPE_COLORS[type] || "bg-gray-400",
   }));
 
@@ -162,18 +162,18 @@ export default function AdvancedPokemonFilters({
                 </span>
               )}
               {selectedType && (
-                <span className="px-2 py-1 bg-white/20 text-xs rounded-full">
-                  {selectedType}
+                <span className="px-2 py-1 bg-white/20 text-xs rounded-full capitalize">
+                  {POKEMON_TYPE_TRANSLATIONS[selectedType.toLowerCase()] || selectedType}
                 </span>
               )}
               {selectedGeneration && (
                 <span className="px-2 py-1 bg-white/20 text-xs rounded-full">
-                  Gen {selectedGeneration}
+                  {POKEMON_GENERATIONS.find((g) => g.id.toString() === selectedGeneration)?.region || `Gen ${selectedGeneration}`}
                 </span>
               )}
               {selectedGame && (
                 <span className="px-2 py-1 bg-white/20 text-xs rounded-full">
-                  Juego
+                  {POKEMON_GAMES.find((g) => g.id === selectedGame)?.name || "Juego"}
                 </span>
               )}
             </div>
@@ -239,7 +239,7 @@ export default function AdvancedPokemonFilters({
             options={typeOptions}
             selectedValue={selectedType}
             onChange={setSelectedType}
-            maxVisible={6}
+            maxVisible={9}
           />
 
           {hasActiveFilters && (

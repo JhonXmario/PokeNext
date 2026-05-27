@@ -5,6 +5,7 @@ import { PokemonCardProps } from "@/types/pokemon-types";
 import Link from "next/link";
 import { useState } from "react";
 import { FaHeart, FaRegHeart, FaRuler, FaWeight } from "react-icons/fa";
+import { POKEMON_TYPE_TRANSLATIONS } from "@/constants/pokemon-data";
 
 const icons = [FaHeart, FaRegHeart, FaRuler, FaWeight].map(
   (icon) => icon as unknown as React.FC<React.SVGProps<SVGSVGElement>>,
@@ -81,9 +82,9 @@ export default function PokemonCard({
           {types.map((type) => (
             <span
               key={type}
-              className={`type-badge type-${type} text-xs px-2 py-1`}
+              className={`type-badge type-${type} text-xs px-2.5 py-1 font-semibold rounded-md shadow-sm capitalize`}
             >
-              {type}
+              {POKEMON_TYPE_TRANSLATIONS[type.toLowerCase()] || type}
             </span>
           ))}
         </div>
