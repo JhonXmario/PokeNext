@@ -99,7 +99,7 @@ export function SearchWithSuggestions({
                     <button
                       type="button"
                       onClick={() => handleSelectPokemon(pokemon.name)}
-                      className="w-full px-4 py-3 hover:bg-pink-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-3 text-left"
+                      className="w-full px-4 py-3 hover:bg-pink-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-3 text-left hover:cursor-pointer"
                     >
                       <div className="relative w-10 h-10 flex-shrink-0">
                         <Image
