@@ -1,5 +1,6 @@
 import { POKEMON_GENERATIONS, POKEMON_GAMES } from "../constants/pokemon-data";
 
+// Obtener detalles de un Pokémon por nombre o ID
 export async function getPokemon(name: string) {
   try {
     const response = await fetch(
@@ -27,6 +28,38 @@ export async function getPokemon(name: string) {
   }
 }
 
+// Buscar Pokémon por nombre (con sugerencias)
+export async function searchPokemonByName(query: string) {
+  if (!query.trim()) return [];
+
+  try {
+    const response = await fetch(
+      `https://pokeapi.co/api/v2/pokemon?limit=1025`
+    );
+    const data = await response.json();
+
+    const filtered = data.results
+      .filter((pokemon: { name: string; url: string }) =>
+        pokemon.name.toLowerCase().includes(query.toLowerCase())
+      )
+      .slice(0, 8)
+      .map((pokemon: { name: string; url: string }) => {
+        const id = pokemon.url.split("/").filter(Boolean).pop();
+        return {
+          id: parseInt(id || "0"),
+          name: pokemon.name,
+          sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
+        };
+      });
+
+    return filtered;
+  } catch (error) {
+    console.error("Error buscando pokémons: ", error);
+    return [];
+  }
+}
+
+// Obtener lista de Pokémon con detalles adicionales (para la Pokédex)
 export async function getEnhancedPokemons(
   limit: number = 1025,
   offset: number = 0

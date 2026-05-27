@@ -3,10 +3,8 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import type { FormEvent } from "react";
 import Image from "next/image";
 import {
-  FaSearch,
   FaHome,
   FaBars,
   FaTimes,
@@ -14,9 +12,9 @@ import {
   FaRandom,
   FaInfoCircle,
 } from "react-icons/fa";
+import { SearchWithSuggestions } from "./SearchWithSuggestions";
 
 const icons = [
-  FaSearch,
   FaHome,
   FaBars,
   FaTimes,
@@ -25,7 +23,7 @@ const icons = [
   FaInfoCircle,
 ].map((icon) => icon as unknown as React.FC<React.SVGProps<SVGSVGElement>>);
 
-const [Search, Home, Bars, Times, List, Random, InfoCircle] = icons;
+const [Home, Bars, Times, List, Random, InfoCircle] = icons;
 
 export default function Navbar() {
   const router = useRouter();
@@ -41,21 +39,10 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleSearch = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const form = event.target as HTMLFormElement;
-    const pokemonName = form.pokemon.value.trim().toLowerCase();
-    if (pokemonName) {
-      router.push(`/pokemon/${pokemonName}`);
-      form.reset();
-      setIsMenuOpen(false); // Cerrar menú móvil después de buscar
-    }
-  };
-
   const handleRandom = () => {
     const randomID = Math.floor(Math.random() * 1025) + 1;
     router.push(`/pokemon/${randomID}`);
-    setIsMenuOpen(false); // cerrar menú móvil si está abierto
+    setIsMenuOpen(false);
   };
 
   const toggleMenu = () => {
@@ -143,23 +130,7 @@ export default function Navbar() {
 
           {/* Search Bar - Desktop */}
           <div className="hidden lg:block">
-            <form onSubmit={handleSearch} className="relative">
-              <div className="flex items-center bg-gray-100 dark:bg-gray-800 rounded-full px-4 py-2 focus-within:ring-2 focus-within:ring-pink-500 focus-within:bg-white dark:focus-within:bg-gray-700 transition-all duration-300 shadow-sm hover:shadow-md">
-                <input
-                  name="pokemon"
-                  type="text"
-                  placeholder="Buscar Pokémon..."
-                  className="bg-transparent py-1 px-2 outline-none text-gray-700 dark:text-gray-300 placeholder-gray-500 dark:placeholder-gray-400 w-48"
-                  autoComplete="off"
-                />
-                <button
-                  type="submit"
-                  className="ml-2 text-pink-600 hover:text-pink-700 dark:text-pink-400 dark:hover:text-pink-300 transition-colors duration-300 hover:scale-110 transform"
-                >
-                  <Search className="w-4 h-4 hover:cursor-pointer" />
-                </button>
-              </div>
-            </form>
+            <SearchWithSuggestions />
           </div>
 
           {/* Mobile menu button */}
@@ -189,21 +160,10 @@ export default function Navbar() {
           <div className="px-2 pt-2 pb-3 space-y-1 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
             {/* Mobile Search */}
             <div className="px-3 py-2">
-              <form onSubmit={handleSearch} className="relative">
-                <div className="flex items-center bg-gray-100 dark:bg-gray-800 rounded-full px-4 py-2 focus-within:ring-2 focus-within:ring-pink-500 transition-all duration-300">
-                  <input
-                    name="pokemon"
-                    type="text"
-                    placeholder="Buscar Pokémon..."
-                    className="bg-transparent py-1 px-2 outline-none text-gray-700 dark:text-gray-300 placeholder-gray-500 dark:placeholder-gray-400 flex-1"
-                    autoComplete="off"
-                  />
-                  <button
-                    type="submit"
-                    className="ml-2 text-pink-600 hover:text-pink-700 dark:text-pink-400 dark:hover:text-pink-300 transition-colors duration-300"
-                  ></button>
-                </div>
-              </form>
+              <SearchWithSuggestions
+                placeholder="Buscar Pokémon..."
+                onClose={() => setIsMenuOpen(false)}
+              />
             </div>
 
             {/* Mobile Navigation Links */}
