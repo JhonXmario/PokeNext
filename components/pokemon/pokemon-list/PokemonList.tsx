@@ -88,6 +88,7 @@ export default function PokemonList({ initialPokemons, itemsPerPage = 20 }: Poke
                   abilities={pokemon.abilities}
                   height={pokemon.height}
                   weight={pokemon.weight}
+                  isFavoriteInitial={pokemon.isFavoriteInitial ?? false}
                 />
               ))}
             </div>
