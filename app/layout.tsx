@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ClerkProvider } from "@clerk/nextjs";
 import "../styles/global.css";
 
 export const metadata: Metadata = {
@@ -6,14 +7,16 @@ export const metadata: Metadata = {
   description: "Pokedex moderna con NextJS",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  );
+  return await ClerkProvider({
+    children: (
+      <html lang="en">
+        <body>{children}</body>
+      </html>
+    ),
+  });
 }

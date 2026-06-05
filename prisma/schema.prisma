@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Modelo de Usuario
+model User {
+  id        String   @id
+  name      String?
+  email     String   @unique
+  image     String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relaciones del Negocio (PokeNext)
+  favorites Favorite[]
+  teams     Team[]
+
+  @@map("users")
+}
+
+// Pokemons favoritos
+model Favorite {
+  userId             String   @map("user_id")
+  pokemonId          Int      @map("pokemon_id")
+  pokemonName        String   @map("pokemon_name")
+  pokemonSprite      String?  @map("pokemon_sprite")
+  pokemonTypes       String[] @default([]) @map("pokemon_types")
+  pokemonAbilities   String[] @default([]) @map("pokemon_abilities")
+  pokemonWeight      Float?   @map("pokemon_weight")
+  pokemonHeight      Float?   @map("pokemon_height")
+  createdAt          DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, pokemonId])
+  @@index([userId])
+  @@map("favorites")
+}
+
+// Equipos de Pokémon (máximo 6 por equipo)
+model Team {
+  id        String   @id @default(cuid())
+  name      String
+  userId    String   @map("user_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  pokemonSlots TeamPokemon[]
+
+  @@index([userId])
+  @@map("teams")
+}
+
+// Tabla intermedia para relacionar equipos con pokémons
+model TeamPokemon {
+  id                 String   @id @default(cuid())
+  teamId             String   @map("team_id")
+  pokemonId          Int      @map("pokemon_id")
+  pokemonName        String   @map("pokemon_name")
+  pokemonSprite      String?  @map("pokemon_sprite")
+  PokemonTypes       String[] @default([]) @map("pokemon_types")
+  order              Int // Slot del 1 al 6
+
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@unique([teamId, order])
+  @@index([teamId])
+  @@map("team_pokemons")
+}
