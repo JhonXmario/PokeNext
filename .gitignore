@@ -30,8 +30,3 @@ lerna-debug.log*
 
 # misc
 .DS_Store
-
-/lib/generated/prisma
-
-# clerk configuration (can include secrets)
-/.clerk/

@@ -9,7 +9,6 @@ export interface Pokemon {
   weight: number;
   generation: number;
   games: string[];
-  isFavoriteInitial?: boolean;
 }
 export interface UsePokemonListProps {
   initialPokemons: Pokemon[];
@@ -67,5 +66,4 @@ export interface PokemonCardProps {
   abilities: string[];
   height: number;
   weight: number;
-  isFavoriteInitial?: boolean;
 }

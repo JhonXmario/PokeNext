@@ -11,11 +11,8 @@ import {
   FaList,
   FaRandom,
   FaInfoCircle,
-  FaHeart,
-  FaSignInAlt,
 } from "react-icons/fa";
 import { SearchWithSuggestions } from "./SearchWithSuggestions";
-import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 
 const icons = [
   FaHome,
@@ -24,51 +21,47 @@ const icons = [
   FaList,
   FaRandom,
   FaInfoCircle,
-  FaHeart,
-  FaSignInAlt,
 ].map((icon) => icon as unknown as React.FC<React.SVGProps<SVGSVGElement>>);
 
-const [Home, Bars, Times, List, Random, InfoCircle, Heart, SignIn] = icons;
-
-interface NavLink {
-  href: string;
-  label: string;
-  icon: React.FC<React.SVGProps<SVGSVGElement>>;
-}
+const [Home, Bars, Times, List, Random, InfoCircle] = icons;
 
 export default function Navbar() {
   const router = useRouter();
-  const { isLoaded, isSignedIn } = useUser();
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
+  // Detectar scroll para añadir efecto de sombra
   useEffect(() => {
-    const handleScroll = (): void => {
+    const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleRandom = (): void => {
+  const handleRandom = () => {
     const randomID = Math.floor(Math.random() * 1025) + 1;
     router.push(`/pokemon/${randomID}`);
     setIsMenuOpen(false);
   };
 
-  const toggleMenu = (): void => {
-    setIsMenuOpen((prev) => !prev);
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
-  const closeMenu = (): void => {
+  const closeMenu = () => {
     setIsMenuOpen(false);
   };
 
-  const navigationLinks: NavLink[] = [
+  const navigationLinks: {
+    href: string;
+    label: string;
+    icon: React.FC<React.SVGProps<SVGSVGElement>>;
+  }[] = [
     { href: "/", label: "Inicio", icon: Home },
+    { href: "/about", label: "Saber mas", icon: InfoCircle },
     { href: "/pokemon", label: "Pokédex", icon: List },
-    { href: "/favorites", label: "Favoritos", icon: Heart },
-    { href: "/about", label: "Saber más", icon: InfoCircle },
+    /* { href: "/favorites", label: "Favoritos", icon: Heart }, */
   ];
 
   return (
@@ -99,11 +92,11 @@ export default function Navbar() {
               </div>
             </div>
             <div className="hidden sm:block">
-              <h1 className="font-bold text-xl bg-linear-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent group-hover:from-pink-700 group-hover:to-blue-700 transition-all duration-300">
+              <h1 className="font-bold text-xl bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent group-hover:from-pink-700 group-hover:to-blue-700 transition-all duration-300">
                 PokéNext
               </h1>
               <p className="text-xs text-gray-500 dark:text-gray-400 -mt-1">
-                Gotta Catch &apos;Em All
+                Gotta Catch 'Em All
               </p>
             </div>
           </Link>
@@ -120,11 +113,10 @@ export default function Navbar() {
                 >
                   <IconComponent className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
                   <span className="font-medium">{link.label}</span>
-                  <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-linear-to-r from-pink-500 to-blue-500 group-hover:w-full transition-all duration-300" />
+                  <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-pink-500 to-blue-500 group-hover:w-full transition-all duration-300"></div>
                 </Link>
               );
             })}
-
             {/* Botón Aleatorio Desktop */}
             <button
               onClick={handleRandom}
@@ -132,63 +124,17 @@ export default function Navbar() {
             >
               <Random className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
               <span className="font-medium">Aleatorio</span>
-              <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-linear-to-r from-pink-500 to-blue-500 group-hover:w-full transition-all duration-300" />
+              <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-pink-500 to-blue-500 group-hover:w-full transition-all duration-300"></div>
             </button>
           </div>
 
-          {/* Right side: Search + Auth */}
-          <div className="hidden lg:flex items-center space-x-4">
+          {/* Search Bar - Desktop */}
+          <div className="hidden lg:block">
             <SearchWithSuggestions />
-
-            {/* Auth - Desktop */}
-            {isLoaded && !isSignedIn && (
-              <SignInButton mode="modal">
-                <button className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-linear-to-r from-pink-600 to-blue-600 text-white font-semibold text-sm hover:from-pink-700 hover:to-blue-700 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 cursor-pointer">
-                  <SignIn className="w-4 h-4" />
-                  <span>Iniciar sesión</span>
-                </button>
-              </SignInButton>
-            )}
-
-            {isLoaded && isSignedIn && (
-              <UserButton
-                appearance={{
-                  elements: {
-                    avatarBox:
-                      "w-9 h-9 ring-2 ring-pink-500 ring-offset-2 ring-offset-white dark:ring-offset-gray-900 rounded-full transition-all duration-300 hover:ring-blue-500",
-                  },
-                }}
-              />
-            )}
           </div>
 
-          {/* Mobile right side: Auth + Hamburger */}
-          <div className="flex items-center space-x-2 lg:hidden">
-            {/* Auth - Mobile (visible, outside menu) */}
-            {isLoaded && !isSignedIn && (
-              <SignInButton mode="modal">
-                <button
-                  className="flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-linear-to-r from-pink-600 to-blue-600 text-white font-semibold text-xs hover:from-pink-700 hover:to-blue-700 transition-all duration-300 shadow-md cursor-pointer"
-                  aria-label="Iniciar sesión"
-                >
-                  <SignIn className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline">Iniciar sesión</span>
-                </button>
-              </SignInButton>
-            )}
-
-            {isLoaded && isSignedIn && (
-              <UserButton
-                appearance={{
-                  elements: {
-                    avatarBox:
-                      "w-8 h-8 ring-2 ring-pink-500 ring-offset-2 ring-offset-white dark:ring-offset-gray-900 rounded-full transition-all duration-300 hover:ring-blue-500",
-                  },
-                }}
-              />
-            )}
-
-            {/* Hamburger */}
+          {/* Mobile menu button */}
+          <div className="md:hidden">
             <button
               onClick={toggleMenu}
               className="text-gray-700 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 transition-colors duration-300 p-2"
@@ -207,7 +153,7 @@ export default function Navbar() {
         <div
           className={`md:hidden transition-all duration-300 ease-in-out ${
             isMenuOpen
-              ? "max-h-screen opacity-100 visible"
+              ? "max-h-96 opacity-100 visible"
               : "max-h-0 opacity-0 invisible overflow-hidden"
           }`}
         >
@@ -244,40 +190,6 @@ export default function Navbar() {
               <Random className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
               <span className="font-medium">Aleatorio</span>
             </button>
-
-            {/* Divider */}
-            <div className="border-t border-gray-200 dark:border-gray-700 my-1" />
-
-            {/* Auth - Inside mobile menu (full width) */}
-            {isLoaded && !isSignedIn && (
-              <div className="px-3 py-2">
-                <SignInButton mode="modal">
-                  <button
-                    onClick={closeMenu}
-                    className="flex items-center justify-center space-x-2 w-full px-4 py-3 rounded-lg bg-linear-to-r from-pink-600 to-blue-600 text-white font-semibold text-sm hover:from-pink-700 hover:to-blue-700 transition-all duration-300 shadow-md cursor-pointer"
-                  >
-                    <SignIn className="w-5 h-5" />
-                    <span>Iniciar sesión</span>
-                  </button>
-                </SignInButton>
-              </div>
-            )}
-
-            {isLoaded && isSignedIn && (
-              <div className="flex items-center space-x-3 px-3 py-3">
-                <UserButton
-                  appearance={{
-                    elements: {
-                      avatarBox:
-                        "w-9 h-9 ring-2 ring-pink-500 ring-offset-2 ring-offset-white dark:ring-offset-gray-900 rounded-full",
-                    },
-                  }}
-                />
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Mi cuenta
-                </span>
-              </div>
-            )}
           </div>
         </div>
       </div>

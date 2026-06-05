@@ -3,11 +3,9 @@
 import type React from "react";
 import { PokemonCardProps } from "@/types/pokemon-types";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FaHeart, FaRegHeart, FaRuler, FaWeight } from "react-icons/fa";
 import { POKEMON_TYPE_TRANSLATIONS } from "@/constants/pokemon-data";
-import { useAuth, useClerk } from "@clerk/nextjs";
-import { toggleFavoriteAction } from "@/app/actions/favorites"; 
 
 const icons = [FaHeart, FaRegHeart, FaRuler, FaWeight].map(
   (icon) => icon as unknown as React.FC<React.SVGProps<SVGSVGElement>>,
@@ -23,56 +21,14 @@ export default function PokemonCard({
   abilities = [],
   height,
   weight,
-  isFavoriteInitial = false,
 }: PokemonCardProps) {
-  const [isFavorite, setIsFavorite] = useState<boolean>(isFavoriteInitial);
+  const [isFavorite, setIsFavorite] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
-  const [isPending, setIsPending] = useState(false);
 
-  useEffect(() => {
-    setIsFavorite(isFavoriteInitial);
-  }, [isFavoriteInitial]);
-
-  // Clerk hooks para controlar la sesión en el cliente
-  const { isSignedIn } = useAuth();
-  const { openSignIn } = useClerk();
-
-  const toggleFavorite = async (e: React.MouseEvent) => {
-    e.preventDefault(); // Evita que el click acceda al <Link> de la tarjeta
-
-    // Si no está logueado, abre el modal de inicio de sesión de Clerk
-    if (!isSignedIn) {
-      openSignIn();
-      return;
-    }
-
-    if (isPending || !id) return;
-
-    try {
-      setIsPending(true);
-
-      // Llamada directa al Server Action pasando los datos
-      const result = await toggleFavoriteAction({
-        id,
-        name,
-        sprite,
-        types,
-        abilities,
-        weight,
-        height,
-      });
-
-      if (result.success) {
-        setIsFavorite(result.isFavorite ?? false);
-      } else {
-        alert("Hubo un problema al guardar tu favorito: " + result.error);
-      }
-    } catch (error) {
-      console.error("Error al ejecutar la acción de favoritos:", error);
-    } finally {
-      setIsPending(false);
-    }
-  };
+  /* const toggleFavorite = (e: React.MouseEvent) => {
+    e.preventDefault()
+    setIsFavorite(!isFavorite)
+  } */
 
   const formatId = (id?: number) => {
     return id ? `#${id.toString().padStart(3, "0")}` : "";
@@ -85,25 +41,18 @@ export default function PokemonCard({
         <span className="text-sm font-bold text-gray-500 dark:text-gray-400">
           {formatId(id)}
         </span>
-        <button
-          onClick={toggleFavorite}
-          disabled={isPending}
-          className={`text-pink-500 hover:text-pink-600 transition-colors duration-300 hover:scale-110 transform ${
-            isPending ? "opacity-50 cursor-not-allowed" : "hover:cursor-pointer"
-          }`}
-          aria-label={isFavorite ? "Quitar de favoritos" : "Añadir a favoritos"}
-        >
-          {isFavorite ? (
-            <Heart className="w-5 h-5" />
-          ) : (
-            <RegHeart className="w-5 h-5" />
-          )}
-        </button>
+        {/* <button
+            onClick={toggleFavorite}
+            className="text-pink-500 hover:text-pink-600 transition-colors duration-300 hover:scale-110 transform"
+            aria-label={isFavorite ? "Quitar de favoritos" : "Añadir a favoritos"}
+          >
+            {isFavorite ? <Heart className="w-5 h-5" /> : <RegHeart className="w-5 h-5" />}
+          </button> */}
       </div>
 
       {/* Imagen del Pokémon */}
       <div className="relative px-4 pb-2">
-        <div className="w-full h-32 flex items-center justify-center bg-linear-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 rounded-lg overflow-hidden">
+        <div className="w-full h-32 flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 rounded-lg overflow-hidden">
           {!imageLoaded && (
             <div className="w-16 h-16 bg-gray-300 dark:bg-gray-600 rounded-full animate-pulse"></div>
           )}
@@ -123,6 +72,7 @@ export default function PokemonCard({
 
       {/* Información del Pokémon */}
       <div className="px-4 pb-4">
+        {/* Nombre */}
         <h3 className="text-lg font-bold capitalize text-gray-900 dark:text-white mb-2 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors duration-300">
           {name}
         </h3>
@@ -143,11 +93,11 @@ export default function PokemonCard({
         <div className="flex justify-between items-center text-xs text-gray-600 dark:text-gray-400 mb-3">
           <div className="flex items-center space-x-1">
             <Ruler className="w-3 h-3" />
-            <span>{height ? (height / 10).toFixed(1) : "0.0"}m</span>
+            <span>{(height / 10).toFixed(1)}m</span>
           </div>
           <div className="flex items-center space-x-1">
             <Weight className="w-3 h-3" />
-            <span>{weight ? (weight / 10).toFixed(1) : "0.0"}kg</span>
+            <span>{(weight / 10).toFixed(1)}kg</span>
           </div>
         </div>
 
