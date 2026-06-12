@@ -1,4 +1,6 @@
 import type React from "react";
+import type { PokemonStatEntry, TeamStats } from "./pokemon-team-types";
+
 export interface Pokemon {
   id: number;
   name: string;
@@ -10,6 +12,7 @@ export interface Pokemon {
   generation: number;
   games: string[];
   isFavoriteInitial?: boolean;
+  stats?: PokemonStatEntry[] | TeamStats;
 }
 export interface UsePokemonListProps {
   initialPokemons: Pokemon[];

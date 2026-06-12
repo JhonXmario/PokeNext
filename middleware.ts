@@ -3,6 +3,7 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 // Cualquier ruta que coincida con estos patrones será protegida.
 const isProtectedRoute = createRouteMatcher([
   "/favorites(.*)",
+  "/teams(.*)",
   // "/profile(.*)",
 ]);
 
