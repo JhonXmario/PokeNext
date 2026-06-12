@@ -2,15 +2,10 @@
 
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "@/lib/generated/prisma/client";
+import prisma from "@/lib/prisma";
 import { Pokemon } from "@/types/pokemon-types";
 import { PokemonTeam, TeamStats } from "@/types/pokemon-team-types";
 import { calculateTeamStatsTotal, createEmptyTeamStats, normalizePokemonStats } from "@/lib/pokemon-stats";
-
-const prisma = new PrismaClient({
-  adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }),
-});
 
 export interface TeamPokemonInput {
   pokemon: Pokemon;
