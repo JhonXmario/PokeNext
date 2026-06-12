@@ -160,19 +160,13 @@ async function fetchPokemonDetailsConcurrently(
     };
   };
 
-  const promises = results.map(async (pokemon, index) => {
-    const p = processItem(pokemon, index);
-    if (CONCURRENCY_LIMIT <= results.length) {
-      const e: any = p.then(() => executing.splice(executing.indexOf(e), 1));
-      executing.push(e);
-      if (executing.length >= CONCURRENCY_LIMIT) {
-        await Promise.race(executing);
-      }
-    }
-    return p;
-  });
+  // Procesar por lotes (chunks) para no saturar el servidor DNS (EBUSY)
+  const BATCH_SIZE = 40;
+  for (let i = 0; i < results.length; i += BATCH_SIZE) {
+    const batch = results.slice(i, i + BATCH_SIZE);
+    await Promise.all(batch.map((pokemon, indexInBatch) => processItem(pokemon, i + indexInBatch)));
+  }
 
-  await Promise.all(promises);
   return pokemons.filter(Boolean);
 }
 
