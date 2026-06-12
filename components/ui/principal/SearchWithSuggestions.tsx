@@ -59,9 +59,9 @@ export function SearchWithSuggestions({
   };
 
   return (
-    <div ref={containerRef} className="relative">
-      <form onSubmit={handleSearch} className="relative">
-        <div className="flex items-center bg-gray-100 dark:bg-gray-800 rounded-full px-4 py-2 focus-within:ring-2 focus-within:ring-pink-500 focus-within:bg-white dark:focus-within:bg-gray-700 transition-all duration-300 shadow-sm hover:shadow-md">
+    <div ref={containerRef} className="relative w-full md:w-auto">
+      <form onSubmit={handleSearch} className="relative w-full">
+        <div className="flex items-center bg-gray-100 dark:bg-gray-800 rounded-full px-4 py-2 focus-within:ring-2 focus-within:ring-pink-500 focus-within:bg-white dark:focus-within:bg-gray-700 transition-all duration-300 shadow-sm hover:shadow-md w-full">
           <input
             ref={inputRef}
             type="text"
@@ -69,7 +69,7 @@ export function SearchWithSuggestions({
             value={query}
             onChange={(e) => handleSearchChange(e.target.value)}
             onFocus={() => query.trim() && setIsOpen(true)}
-            className="bg-transparent py-1 px-2 outline-none text-gray-700 dark:text-gray-300 placeholder-gray-500 dark:placeholder-gray-400 w-48"
+            className="bg-transparent py-1 px-2 outline-none text-gray-700 dark:text-gray-300 placeholder-gray-500 dark:placeholder-gray-400 grow w-full md:w-48 lg:w-64 transition-all duration-300"
             autoComplete="off"
           />
           <button
@@ -101,7 +101,7 @@ export function SearchWithSuggestions({
                       onClick={() => handleSelectPokemon(pokemon.name)}
                       className="w-full px-4 py-3 hover:bg-pink-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-3 text-left hover:cursor-pointer"
                     >
-                      <div className="relative w-10 h-10 flex-shrink-0">
+                      <div className="relative w-10 h-10 shrink-0">
                         <Image
                           src={pokemon.sprite}
                           alt={pokemon.name}
