@@ -50,12 +50,10 @@ export async function getCompletePokemonData(name: string) {
     const pokemonDetail = await getPokemonDetail(name);
     if (!pokemonDetail) return null;
 
-    const [species, evolutionChain] = await Promise.all([
-      getPokemonSpecies(pokemonDetail.species.url),
-      getPokemonSpecies(pokemonDetail.species.url).then((species) =>
-        species ? getEvolutionChain(species.evolution_chain.url) : null
-      ),
-    ]);
+    const species = await getPokemonSpecies(pokemonDetail.species.url);
+    const evolutionChain = species
+      ? await getEvolutionChain(species.evolution_chain.url)
+      : null;
 
     return {
       detail: pokemonDetail,

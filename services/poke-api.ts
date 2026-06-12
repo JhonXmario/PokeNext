@@ -59,7 +59,10 @@ export async function searchPokemonByName(query: string) {
   }
 }
 
-const POKEMON_FETCH_BATCH_SIZE = 20;
+// Cache en memoria del servidor para evitar consultar de nuevo los datos estáticos de los 1025 Pokémon
+let cachedEnhancedPokemons: any[] | null = null;
+
+const CONCURRENCY_LIMIT = 80;
 const POKEMON_FETCH_MAX_RETRIES = 3;
 
 async function fetchPokemonDetails(url: string, name: string) {
@@ -83,7 +86,7 @@ async function fetchPokemonDetails(url: string, name: string) {
 
   if (!pokemonResponse || !pokemonResponse.ok) {
     console.error(
-      `La operacion a fallado obteniendo los datos de: ${name} despues de ${POKEMON_FETCH_MAX_RETRIES} intentos fallidos`,
+      `La operación ha fallado obteniendo los datos de: ${name} después de ${POKEMON_FETCH_MAX_RETRIES} intentos fallidos`,
     );
     return null;
   }
@@ -91,66 +94,86 @@ async function fetchPokemonDetails(url: string, name: string) {
   return pokemonResponse.json();
 }
 
-async function fetchPokemonDetailsInBatches(
+async function fetchPokemonDetailsConcurrently(
   results: Array<{ name: string; url: string }>,
 ) {
-  const pokemons: Array<any> = [];
+  const pokemons: Array<any> = new Array(results.length);
+  const executing: Promise<any>[] = [];
 
-  for (
-    let index = 0;
-    index < results.length;
-    index += POKEMON_FETCH_BATCH_SIZE
-  ) {
-    const batch = results.slice(index, index + POKEMON_FETCH_BATCH_SIZE);
-    const batchResponses = await Promise.all(
-      batch.map(async (pokemon) => {
-        const pokemonData = await fetchPokemonDetails(
-          pokemon.url,
-          pokemon.name,
-        );
-        if (!pokemonData) return null;
+  const processItem = async (
+    pokemon: { name: string; url: string },
+    index: number,
+  ) => {
+    const pokemonData = await fetchPokemonDetails(pokemon.url, pokemon.name);
+    if (!pokemonData) return;
 
-        let generation = 0;
-        for (const gen of POKEMON_GENERATIONS) {
-          const [start, end] = gen.range.split("-").map((n) => parseInt(n));
-          if (end) {
-            if (pokemonData.id >= start && pokemonData.id <= end) {
-              generation = gen.id;
-              break;
-            }
-          } else {
-            if (pokemonData.id >= start) {
-              generation = gen.id;
-              break;
-            }
-          }
+    let generation = 0;
+    for (const gen of POKEMON_GENERATIONS) {
+      const [start, end] = gen.range.split("-").map((n) => parseInt(n));
+      if (end) {
+        if (pokemonData.id >= start && pokemonData.id <= end) {
+          generation = gen.id;
+          break;
         }
+      } else {
+        if (pokemonData.id >= start) {
+          generation = gen.id;
+          break;
+        }
+      }
+    }
 
-        const games = POKEMON_GAMES.filter(
-          (g) => g.generation === generation,
-        ).map((g) => g.id);
-
-        return {
-          id: pokemonData.id,
-          name: pokemonData.name,
-          sprite:
-            pokemonData.sprites.other["official-artwork"].front_default ||
-            pokemonData.sprites.front_default ||
-            `/placeholder.svg?height=128&width=128&query=${pokemonData.name}`,
-          types: pokemonData.types.map((t: any) => t.type.name),
-          abilities: pokemonData.abilities.map((a: any) => a.ability.name),
-          height: pokemonData.height,
-          weight: pokemonData.weight,
-          generation,
-          games,
-        };
-      }),
+    const games = POKEMON_GAMES.filter((g) => g.generation === generation).map(
+      (g) => g.id,
     );
 
-    pokemons.push(...batchResponses.filter(Boolean));
-  }
+    pokemons[index] = {
+      id: pokemonData.id,
+      name: pokemonData.name,
+      sprite:
+        pokemonData.sprites.other["official-artwork"].front_default ||
+        pokemonData.sprites.front_default ||
+        `/placeholder.svg?height=128&width=128&query=${pokemonData.name}`,
+      types: pokemonData.types.map((t: any) => t.type.name),
+      abilities: pokemonData.abilities.map((a: any) => a.ability.name),
+      height: pokemonData.height,
+      weight: pokemonData.weight,
+      generation,
+      games,
+      stats: pokemonData.stats.map((s: any) => {
+        const statId = s.stat.url
+          .split("/")
+          .filter(Boolean)
+          .pop();
 
-  return pokemons;
+        return {
+          name: s.stat.name,
+          number: statId ? parseInt(statId, 10) : 0,
+          value: s.base_stat,
+          base_stat: s.base_stat,
+          stat: {
+            name: s.stat.name,
+            url: s.stat.url,
+          },
+        };
+      }),
+    };
+  };
+
+  const promises = results.map(async (pokemon, index) => {
+    const p = processItem(pokemon, index);
+    if (CONCURRENCY_LIMIT <= results.length) {
+      const e: any = p.then(() => executing.splice(executing.indexOf(e), 1));
+      executing.push(e);
+      if (executing.length >= CONCURRENCY_LIMIT) {
+        await Promise.race(executing);
+      }
+    }
+    return p;
+  });
+
+  await Promise.all(promises);
+  return pokemons.filter(Boolean);
 }
 
 // Obtener lista de Pokémon con detalles adicionales (para la Pokédex)
@@ -158,6 +181,11 @@ export async function getEnhancedPokemons(
   limit: number = 1025,
   offset: number = 0,
 ) {
+  // Retornar caché en memoria si es la lista completa y ya está construida
+  if (limit === 1025 && offset === 0 && cachedEnhancedPokemons) {
+    return cachedEnhancedPokemons;
+  }
+
   try {
     const response = await fetch(
       `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`,
@@ -167,7 +195,12 @@ export async function getEnhancedPokemons(
     );
     const data = await response.json();
 
-    const pokemons = await fetchPokemonDetailsInBatches(data.results);
+    const pokemons = await fetchPokemonDetailsConcurrently(data.results);
+
+    // Guardar en la caché en memoria del servidor
+    if (limit === 1025 && offset === 0 && pokemons.length > 0) {
+      cachedEnhancedPokemons = pokemons;
+    }
 
     return pokemons;
   } catch (error) {

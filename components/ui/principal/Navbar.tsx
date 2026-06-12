@@ -13,6 +13,7 @@ import {
   FaInfoCircle,
   FaHeart,
   FaSignInAlt,
+  FaUsers,
 } from "react-icons/fa";
 import { SearchWithSuggestions } from "./SearchWithSuggestions";
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
@@ -26,9 +27,10 @@ const icons = [
   FaInfoCircle,
   FaHeart,
   FaSignInAlt,
+  FaUsers,
 ].map((icon) => icon as unknown as React.FC<React.SVGProps<SVGSVGElement>>);
 
-const [Home, Bars, Times, List, Random, InfoCircle, Heart, SignIn] = icons;
+const [Home, Bars, Times, List, Random, InfoCircle, Heart, SignIn, Users] = icons;
 
 interface NavLink {
   href: string;
@@ -69,6 +71,7 @@ export default function Navbar() {
     { href: "/pokemon", label: "Pokédex", icon: List },
     { href: "/favorites", label: "Favoritos", icon: Heart },
     { href: "/about", label: "Saber más", icon: InfoCircle },
+    { href: "/teams", label: "Equipos", icon: Users },
   ];
 
   return (
@@ -79,7 +82,7 @@ export default function Navbar() {
           : ""
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+      <div className="max-w-8xl mx-auto px-6 sm:px-8 lg:px-1 w-full">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link

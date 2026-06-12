@@ -25,15 +25,15 @@ model User {
 
 // Pokemons favoritos
 model Favorite {
-  userId             String   @map("user_id")
-  pokemonId          Int      @map("pokemon_id")
-  pokemonName        String   @map("pokemon_name")
-  pokemonSprite      String?  @map("pokemon_sprite")
-  pokemonTypes       String[] @default([]) @map("pokemon_types")
-  pokemonAbilities   String[] @default([]) @map("pokemon_abilities")
-  pokemonWeight      Float?   @map("pokemon_weight")
-  pokemonHeight      Float?   @map("pokemon_height")
-  createdAt          DateTime @default(now()) @map("created_at")
+  userId           String   @map("user_id")
+  pokemonId        Int      @map("pokemon_id")
+  pokemonName      String   @map("pokemon_name")
+  pokemonSprite    String?  @map("pokemon_sprite")
+  pokemonTypes     String[] @default([]) @map("pokemon_types")
+  pokemonAbilities String[] @default([]) @map("pokemon_abilities")
+  pokemonWeight    Float?   @map("pokemon_weight")
+  pokemonHeight    Float?   @map("pokemon_height")
+  createdAt        DateTime @default(now()) @map("created_at")
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -44,11 +44,12 @@ model Favorite {
 
 // Equipos de Pokémon (máximo 6 por equipo)
 model Team {
-  id        String   @id @default(cuid())
-  name      String
-  userId    String   @map("user_id")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  userId      String   @map("user_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
 
   user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   pokemonSlots TeamPokemon[]
@@ -59,17 +60,33 @@ model Team {
 
 // Tabla intermedia para relacionar equipos con pokémons
 model TeamPokemon {
-  id                 String   @id @default(cuid())
-  teamId             String   @map("team_id")
-  pokemonId          Int      @map("pokemon_id")
-  pokemonName        String   @map("pokemon_name")
-  pokemonSprite      String?  @map("pokemon_sprite")
-  PokemonTypes       String[] @default([]) @map("pokemon_types")
-  order              Int // Slot del 1 al 6
+  id               String       @id @default(cuid())
+  teamId           String       @map("team_id")
+  pokemonId        String       @map("pokemon_id")
+  pokemonName      String       @map("pokemon_name")
+  pokemonSprite    String?      @map("pokemon_sprite")
+  PokemonTypes     String[]     @default([]) @map("pokemon_types")
+  PokemonAbilities String[]     @default([]) @map("pokemon_abilities")
+  order            Int // Slot del 1 al 6
+  stats            StatsPokemon @relation(fields: [pokemonId], references: [id], onDelete: Cascade)
 
   team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
 
   @@unique([teamId, order])
   @@index([teamId])
   @@map("team_pokemons")
+}
+
+model StatsPokemon {
+  id           String        @id @default(cuid())
+  name         String        @unique
+  hp           String
+  attack       String
+  defense      String
+  spAttack     String        @map("sp_attack")
+  spDefense    String        @map("sp_defense")
+  speed        String
+  teamPokemons TeamPokemon[]
+
+  @@map("stats_pokemon")
 }
