@@ -3,6 +3,7 @@
 import type React from "react";
 import { PokemonCardProps } from "@/types/pokemon-types";
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { FaHeart, FaRegHeart, FaRuler, FaWeight } from "react-icons/fa";
 import { POKEMON_TYPE_TRANSLATIONS } from "@/constants/pokemon-data";
@@ -107,17 +108,21 @@ export default function PokemonCard({
           {!imageLoaded && (
             <div className="w-16 h-16 bg-gray-300 dark:bg-gray-600 rounded-full animate-pulse"></div>
           )}
-          <img
-            src={
-              sprite || "/placeholder.svg?height=128&width=128&query=pokemon"
-            }
-            alt={name}
-            className={`w-24 h-24 object-contain transition-opacity duration-300 ${
-              imageLoaded ? "opacity-100" : "opacity-0"
-            }`}
-            onLoad={() => setImageLoaded(true)}
-            onError={() => setImageLoaded(true)}
-          />
+          <div className={`relative w-24 h-24 transition-opacity duration-300 ${
+            imageLoaded ? "opacity-100" : "opacity-0"
+          }`}>
+            <Image
+              src={
+                sprite || "/placeholder.svg?height=128&width=128&query=pokemon"
+              }
+              alt={name}
+              fill
+              sizes="96px"
+              className="object-contain"
+              onLoad={() => setImageLoaded(true)}
+              onError={() => setImageLoaded(true)}
+            />
+          </div>
         </div>
       </div>
 
