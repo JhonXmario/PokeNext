@@ -3,20 +3,20 @@
 import { useState } from "react";
 import PokemonCard from "./PokemonCard";
 import { FaHeart } from "react-icons/fa";
-import type { Pokemon } from "@/types/pokemon-types";
+import type { FavoritesPageProps } from "@/types/pokemon-types";
 
 const icons = FaHeart as unknown as React.FC<React.SVGProps<SVGSVGElement>>;
 
 const Heart = icons;
 
 interface FavoritesListProps {
-  initialFavorites: Pokemon[];
+  initialFavorites: FavoritesPageProps[];
 }
 
 export default function FavoritesList({
   initialFavorites,
 }: FavoritesListProps) {
-  const [favorites] = useState<Pokemon[]>(initialFavorites);
+  const [favorites] = useState<FavoritesPageProps[]>(initialFavorites);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -51,11 +51,11 @@ export default function FavoritesList({
                 key={pokemon.id}
                 id={pokemon.id}
                 name={pokemon.name}
-                sprite={pokemon.sprite}
+                sprite={pokemon.sprite ?? ""}
                 types={pokemon.types}
                 abilities={pokemon.abilities}
-                height={pokemon.height}
-                weight={pokemon.weight}
+                weight={Number(pokemon.weight ?? 0)}
+                height={Number(pokemon.height ?? 0)}
                 isFavoriteInitial={true}
               />
             ))}
