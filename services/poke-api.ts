@@ -61,8 +61,6 @@ export async function searchPokemonByName(query: string) {
 
 // Cache en memoria del servidor para evitar consultar de nuevo los datos estáticos de los 1025 Pokémon
 let cachedEnhancedPokemons: any[] | null = null;
-
-const CONCURRENCY_LIMIT = 80;
 const POKEMON_FETCH_MAX_RETRIES = 3;
 
 async function fetchPokemonDetails(url: string, name: string) {
