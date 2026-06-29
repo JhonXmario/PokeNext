@@ -47,7 +47,9 @@ test.describe("Pokemon Details Functionality", () => {
     await page.goto("/pokemon", { waitUntil: "networkidle" });
 
     // 2. Wait for the pokemon cards to render in the DOM
-    await expect(page.locator(".pokemon-card").first()).toBeVisible({ timeout: 30000 });
+    await expect(page.locator(".pokemon-card").first()).toBeVisible({
+      timeout: 30000,
+    });
 
     // We assume the href is lowercase as the Link in PokemonCard indicates
     const charizardLink = page.locator('a[href="/pokemon/charizard"]');
@@ -73,7 +75,9 @@ test.describe("Pokemon Details Functionality", () => {
     await page.goto("/pokemon", { waitUntil: "networkidle" });
 
     // 2. Wait for the pokemon cards to render in the DOM
-    await expect(page.locator(".pokemon-card").first()).toBeVisible({ timeout: 30000 });
+    await expect(page.locator(".pokemon-card").first()).toBeVisible({
+      timeout: 30000,
+    });
 
     // 3. Wait and click the Bulbasaur details link
     // We assume the href is lowercase as the Link in PokemonCard indicates
@@ -100,7 +104,9 @@ test.describe("Pokemon Details Functionality", () => {
     await page.goto("/pokemon", { waitUntil: "networkidle" });
 
     // 2. Wait for the pokemon cards to render in the DOM
-    await expect(page.locator(".pokemon-card").first()).toBeVisible({ timeout: 30000 });
+    await expect(page.locator(".pokemon-card").first()).toBeVisible({
+      timeout: 30000,
+    });
 
     // 3. Locate and click the pagination button for page 2
     // We assume the pagination button has the exact text "2" and role button
@@ -118,7 +124,7 @@ test.describe("Pokemon Details Functionality", () => {
 
     // 6. Verify it has the "electric" type
     // According to the TypeBadges component, types have the class `type-<type-name>`
-    const electricBadge = page.locator('.type-electric');
+    const electricBadge = page.locator(".type-electric");
     await expect(electricBadge.first()).toBeVisible();
   });
 });
@@ -131,7 +137,9 @@ test.describe("Favorites Functionality (without auth)", () => {
     await page.goto("/pokemon", { waitUntil: "networkidle" });
 
     // 2. Wait for the pokemon cards to load
-    await expect(page.locator(".pokemon-card").first()).toBeVisible({ timeout: 30000 });
+    await expect(page.locator(".pokemon-card").first()).toBeVisible({
+      timeout: 30000,
+    });
 
     // 3. Navigate to page 3 using the pagination button
     const page3Button = page.getByRole("button", { name: "3", exact: true });
@@ -154,6 +162,8 @@ test.describe("Favorites Functionality (without auth)", () => {
     const favoriteButton = thirdCard.getByRole("button", {
       name: "Add to favorites",
     });
+    await expect(favoriteButton).toBeVisible();
+    await expect(favoriteButton).toBeEnabled();
     await favoriteButton.click();
 
     // 8. Verify the Clerk sign-in modal appears
