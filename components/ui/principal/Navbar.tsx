@@ -70,8 +70,8 @@ export default function Navbar() {
     { href: "/", label: "Inicio", icon: Home },
     { href: "/pokemon", label: "Pokédex", icon: List },
     { href: "/favorites", label: "Favoritos", icon: Heart },
-    { href: "/about", label: "Saber más", icon: InfoCircle },
     { href: "/teams", label: "Equipos", icon: Users },
+    { href: "/about", label: "Saber más", icon: InfoCircle },
   ];
 
   return (
