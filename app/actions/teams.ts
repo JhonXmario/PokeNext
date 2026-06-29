@@ -62,7 +62,7 @@ async function ensureAuthenticatedUser() {
   return userId;
 }
 
-function normalizeTeamStats(stats: TeamStats): TeamStats {
+/* function normalizeTeamStats(stats: TeamStats): TeamStats {
   const normalizedStats = {
     hp: Number(stats.hp) || 0,
     attack: Number(stats.attack) || 0,
@@ -76,7 +76,7 @@ function normalizeTeamStats(stats: TeamStats): TeamStats {
     ...normalizedStats,
     total: calculateTeamStatsTotal(normalizedStats),
   };
-}
+} */
 
 function mapStatsToTeamStats(stats: {
   hp: string;
@@ -266,7 +266,7 @@ export async function createTeamAction(input: CreateTeamInput): Promise<TeamActi
   }
 
   try {
-    const normalizedStats = normalizeTeamStats(input.stats);
+    //const normalizedStats = normalizeTeamStats(input.stats);
     const createdTeam = await prisma.team.create({
       data: {
         name: trimmedName,
