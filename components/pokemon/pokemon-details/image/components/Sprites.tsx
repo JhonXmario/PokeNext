@@ -1,3 +1,4 @@
+import Image from "next/image";
 interface AdditionalSpritesProps {
   sprites: {
     front_default?: string | null;
@@ -12,9 +13,11 @@ export const AdditionalSprites = ({ sprites }: AdditionalSpritesProps) => (
     {sprites.front_default ? (
       <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3 text-center">
         {/* Sprite Normal */}
-        <img
+        <Image
           src={sprites.front_default || "/placeholder.svg"}
           alt="Sprite Normal"
+          width={64}
+          height={64}
           className="w-16 h-16 mx-auto mb-2"
           loading="lazy"
         />
@@ -33,9 +36,11 @@ export const AdditionalSprites = ({ sprites }: AdditionalSpritesProps) => (
     {/* Sprite Reverse */}
     {sprites.back_default ? (
       <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3 text-center">
-        <img
+        <Image
           src={sprites.back_default || "/placeholder.svg"}
           alt="Sprite Reverso"
+          width={64}
+          height={64}
           className="w-16 h-16 mx-auto mb-2"
           loading="lazy"
         />
@@ -54,9 +59,11 @@ export const AdditionalSprites = ({ sprites }: AdditionalSpritesProps) => (
     {/* Sprite Shiny */}
     {sprites.front_shiny ? (
       <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3 text-center">
-        <img
+        <Image
           src={sprites.front_shiny}
           alt="Sprite Shiny"
+          width={64}
+          height={64}
           className="w-16 h-16 mx-auto mb-2"
           loading="lazy"
         />
@@ -75,9 +82,11 @@ export const AdditionalSprites = ({ sprites }: AdditionalSpritesProps) => (
     {/* Sprite Reverse Shiny */}
     {sprites.back_shiny ? (
       <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3 text-center">
-        <img
+        <Image
           src={sprites.back_shiny}
           alt="Sprite Reverse Shiny"
+          width={64}
+          height={64}
           className="w-16 h-16 mx-auto mb-2"
           loading="lazy"
         />

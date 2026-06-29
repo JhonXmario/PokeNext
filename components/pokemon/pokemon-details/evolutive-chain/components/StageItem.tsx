@@ -1,5 +1,6 @@
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image";
 interface EvolutionStageItemProps {
   stage: {
     name: string
@@ -16,7 +17,7 @@ export const EvolutionStageItem = ({ stage }: EvolutionStageItemProps) => {
     <div
       className={`relative p-4 rounded-xl transition-all duration-300 hover:cursor-pointer ${
         stage.isCurrent
-          ? "bg-gradient-to-r from-pink-100 to-blue-100 dark:from-pink-900/30 dark:to-blue-900/30 ring-2 ring-pink-500 scale-105"
+          ? "bg-linear-to-r from-pink-100 to-blue-100 dark:from-pink-900/30 dark:to-blue-900/30 ring-2 ring-pink-500 scale-105"
           : "bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600"
       }`}
     >
@@ -34,9 +35,11 @@ export const EvolutionStageItem = ({ stage }: EvolutionStageItemProps) => {
           {!imageLoaded && !imageError && (
             <div className="w-16 h-16 bg-gray-300 dark:bg-gray-600 rounded-full animate-pulse"></div>
           )}
-          <img
+          <Image
             src={stage.sprite}
             alt={stage.name}
+            width={64}
+            height={64}
             className={`w-16 h-16 object-contain transition-opacity duration-300 ${
               imageLoaded ? "opacity-100" : "opacity-0 absolute"
             }`}
