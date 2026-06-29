@@ -1,4 +1,4 @@
-import { FaArrowRight } from "react-icons/fa"
+//import { FaArrowRight } from "react-icons/fa"
 import { EvolutionStageItem } from "./StageItem"
 import type { EvolutionStage } from "@/hooks/use-pokemon-evolution"
 
@@ -6,11 +6,11 @@ interface EvolutionChainDisplayProps {
   stages: EvolutionStage[]
 }
 
-const ArrowRight = FaArrowRight as unknown as React.FC<React.SVGProps<SVGSVGElement>>;
+//const ArrowRight = FaArrowRight as unknown as React.FC<React.SVGProps<SVGSVGElement>>;
 
 export const EvolutionChainDisplay = ({ stages }: EvolutionChainDisplayProps) => (
   <div className="flex flex-col space-y-10">
-    {stages.map((stage, index) => (
+    {stages.map((stage) => (
       <div key={stage.name} className="flex flex-col items-center">
         <EvolutionStageItem stage={stage} />
         
