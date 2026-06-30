@@ -1,3 +1,4 @@
+import Image from "next/image";
 interface MainPokemonImageProps {
   sprite: string | null;
   pokemonName: string;
@@ -18,7 +19,7 @@ export const MainPokemonImage = ({
   onImageError,
 }: MainPokemonImageProps) => (
   <div className="relative mb-6">
-    <div className="w-full h-80 flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 rounded-2xl overflow-hidden relative">
+    <div className="w-full h-80 flex items-center justify-center bg-linear-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 rounded-2xl overflow-hidden relative">
       {/* Loading skeleton */}
       {!imageLoaded && !imageError && (
         <div className="absolute inset-0 flex items-center justify-center">
@@ -36,8 +37,10 @@ export const MainPokemonImage = ({
 
       {/* Imagen del Pokémon */}
       {sprite && (
-        <img
+        <Image
           src={sprite}
+          width={256}
+          height={256}
           alt={`${pokemonName} ${isShiny ? "shiny" : "normal"}`}
           className={`w-64 h-64 object-contain transition-all duration-500 ${
             imageLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"

@@ -72,3 +72,13 @@ export interface PokemonCardProps {
   weight: number;
   isFavoriteInitial?: boolean;
 }
+
+export interface FavoritesPageProps {
+  id: number;
+  name: string;
+  sprite: string | null;
+  types: string[];
+  abilities: string[];
+  height: number | null;
+  weight: number | null;
+}
