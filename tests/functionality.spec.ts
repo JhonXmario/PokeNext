@@ -151,7 +151,7 @@ test.describe("Favorites Functionality (without auth)", () => {
 
     // 5. Identify the third card in the list
     const thirdCard = page.locator(".pokemon-card").nth(2); // nth is 0-indexed
-    await expect(thirdCard).toBeVisible();
+    await thirdCard.scrollIntoViewIfNeeded();
 
     // 6. Capture the pokemon name for log reference
     const pokemonName = await thirdCard.locator("h3").textContent();
@@ -160,7 +160,7 @@ test.describe("Favorites Functionality (without auth)", () => {
     // 7. Click the favorite (heart) button inside that card
     // The button has aria-label="Add to favorites" when not favorite
     const favoriteButton = thirdCard.getByRole("button", {
-      name: "Add to favorites",
+      name: "Añadir a favoritos",
     });
     await expect(favoriteButton).toBeVisible();
     await expect(favoriteButton).toBeEnabled();
